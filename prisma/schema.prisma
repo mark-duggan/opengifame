@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Gif {
+    id String @id @default(uuid())
+
+    title       String  @db.VarChar(100)
+    description String? @db.VarChar(2000)
+    searchTerms String? @db.VarChar(2000)
+    //this is temporary, filenames should always match the GUID above
+    fileName    String  @db.VarChar(100)
+    upVotes     Int     @default(0)
+    downVotes   Int     @default(0)
+
+    createdAt DateTime @default(now())
+}

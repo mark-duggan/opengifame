@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
+    previewFeatures = ["filteredRelationCount"]
 }
 
 datasource db {
@@ -18,8 +19,18 @@ model Gif {
     searchTerms String? @db.VarChar(2000)
     //this is temporary, filenames should always match the GUID above
     fileName    String  @db.VarChar(100)
-    upVotes     Int     @default(0)
-    downVotes   Int     @default(0)
+
+    votes Votes[]
 
     createdAt DateTime @default(now())
+}
+
+model Votes {
+    id        String  @id @default(uuid())
+    isUp      Boolean @db.Boolean()
+    browserId String  @db.VarChar(1000)
+
+    createdAt DateTime @default(now())
+    gif       Gif      @relation(fields: [gifId], references: [id])
+    gifId     String
 }

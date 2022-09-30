@@ -1,3 +1,4 @@
-import {Gif} from "./Gif";
+import type Gif from "./Gif";
+import type VoteModel from "./voteModel";
 
-export type {Gif}
+export { Gif, VoteModel };

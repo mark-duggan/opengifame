@@ -1,24 +1,21 @@
-import { PrismaClient } from "@prisma/client";
-import type { GetServerSideProps, NextPage } from "next";
-import { Gif } from "../models";
-import Image from "next/image";
+import {PrismaClient} from "@prisma/client";
+import type {GetServerSideProps, NextPage} from "next";
+import {Gif} from "models"
+import {GifContainer} from "components";
+import {getBrowserId} from "../utils/browser";
 
 interface IHomeProps {
     gifs: Gif[]
 }
 
-const Home: NextPage<IHomeProps> = ({ gifs }) => {
+const Home: NextPage<IHomeProps> = ({gifs}) => {
     return (
         <div>
-            <h1 className="text-3xl font-bold text-red-700 underline">
-                Frasier Gifs
-            </h1>
-            <div className="grid grid-cols-3">
+            <div className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
                 {gifs.map((gif: Gif) => {
                     return (
-                        <div key={gif.id}>
-                            <h2>{gif.title}</h2>
-                            <Image alt={gif.title} width={64} height={64} src={`/samples/${gif.fileName}.gif`} />
+                        <div key={gif.id} className="m-2">
+                            <GifContainer gif={gif}/>
                         </div>
                     )
                 })}
@@ -27,12 +24,57 @@ const Home: NextPage<IHomeProps> = ({ gifs }) => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+    const browserId = getBrowserId(req.headers.cookie || '');
     const prisma = new PrismaClient();
-    const gifs = await prisma.gif.findMany({
-        take: 12, orderBy: { title: 'asc' },
-    });
 
-    return { props: { gifs: JSON.parse(JSON.stringify(gifs)) } };
+    const results = await prisma.gif.findMany({
+        take: 12, orderBy: {title: 'asc'},
+        include: {
+            _count: {
+                select: {
+                    votes: {where: {isUp: true}},
+                    // votes: { where: { isUp: false } }, //how to achieve
+                }
+            }
+        }
+    });
+    const gifs = await Promise.all(results.map(async (gif): Promise<Gif> => {
+        const votes = await prisma.votes.count({
+            where: {
+                gifId: gif.id as string,
+                browserId: browserId,
+            },
+        })
+        const upVotes = await prisma.votes.count({
+            where: {
+                gifId: gif.id as string,
+                browserId: browserId,
+                isUp: true
+            },
+        })
+        const downVotes = await prisma.votes.count({
+            where: {
+                gifId: gif.id as string,
+                browserId: browserId,
+                isUp: false
+            },
+        })
+        return {
+            id: gif.id,
+            title: gif.title,
+            description: gif.description,
+            fileName: gif.fileName,
+            dateCreated: gif.createdAt.toISOString(),
+            upVotes: upVotes,
+            downVotes: downVotes,
+            hasVoted: votes !== 0
+        }
+    }))
+    return {
+        props: {
+            gifs
+        }
+    };
 };
 export default Home;

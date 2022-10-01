@@ -11,7 +11,7 @@ const Navbar = () => {
                             <Image alt="Logo" width={48} height={48}
                                 className="rounded-full"
                                 src={'/img/header-logo.gif'} />
-                            <h1 className='ml-4 text-2xl text-gray-700 text-bold'>Frasier Gifs</h1>
+                            <h1 className='ml-4 text-2xl text-gray-700 text-bold'>I&apos;m pro opera and I vote!</h1>
                         </div>
                         <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                             <a href="#" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-indigo-500" aria-current="page"> Upload </a>

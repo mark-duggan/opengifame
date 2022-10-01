@@ -20,17 +20,30 @@ model Gif {
     //this is temporary, filenames should always match the GUID above
     fileName    String  @db.VarChar(100)
 
-    votes Votes[]
+    upVotes   UpVotes[]
+    downVotes DownVotes[]
 
     createdAt DateTime @default(now())
 }
 
-model Votes {
-    id        String  @id @default(uuid())
-    isUp      Boolean @db.Boolean()
-    browserId String  @db.VarChar(1000)
+model UpVotes {
+    id        String @id @default(uuid())
+    browserId String @db.VarChar(1000)
 
     createdAt DateTime @default(now())
     gif       Gif      @relation(fields: [gifId], references: [id])
     gifId     String
+
+    @@unique([browserId, gifId])
+}
+
+model DownVotes {
+    id        String @id @default(uuid())
+    browserId String @db.VarChar(1000)
+
+    createdAt DateTime @default(now())
+    gif       Gif      @relation(fields: [gifId], references: [id])
+    gifId     String
+
+    @@unique([browserId, gifId])
 }

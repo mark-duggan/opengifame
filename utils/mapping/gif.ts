@@ -1,4 +1,4 @@
-import { Gif as modelGif } from "@models";
+import type { Gif as modelGif } from "@/models";
 import { Gif } from "@prisma/client";
 
 export const mapGif = (

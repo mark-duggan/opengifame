@@ -7,10 +7,18 @@ interface IGifContainerProps {
     gif: Gif;
 }
 const GifContainer: React.FC<IGifContainerProps> = ({ gif }) => {
+    const [upVotes, setUpVotes] = React.useState<number>(gif.upVotes);
+    const [downVotes, setDownVotes] = React.useState<number>(gif.downVotes);
+
     const _doot = async (id: string, isUp: boolean) => {
-        const result = await fetch(`api/votes?gifId=${id}&isUp=${isUp ? 1 : 0}`, {
+        const response = await fetch(`api/votes?gifId=${id}&isUp=${isUp ? 1 : 0}`, {
             method: 'POST'
         });
+        if (response.status === 200) {
+            const result = await response.json() as Gif;
+            setUpVotes(result.upVotes)
+            setDownVotes(result.downVotes)
+        }
     }
     return (<>
         <div className="group relative h-[17.5rem] transform overflow-hidden rounded-4xl">
@@ -22,8 +30,6 @@ const GifContainer: React.FC<IGifContainerProps> = ({ gif }) => {
                     src={`/samples/${gif.fileName}.gif`} />
             </div>
         </div>
-        {/* <h3 className="mt-2 text-xl font-bold tracking-tight font-display text-slate-900">{gif.title}</h3> */}
-
         <div className="flex flex-row p-2">
             <p className="flex-1 text-base tracking-tight text-slate-500">
                 <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
@@ -42,7 +48,7 @@ const GifContainer: React.FC<IGifContainerProps> = ({ gif }) => {
                         onClick={() => _doot(gif.id, true)}>
                         <HandThumbUpIcon className="w-5" />
                     </span>
-                    <span className="text-xs">{gif.upVotes?.toString()}</span>
+                    <span className="text-xs">{upVotes}</span>
                 </div>
                 <div className="flex transition duration-75 ease-in-out delay-150 hover:text-orange-700 hover:cursor-pointer">
                     <span
@@ -50,7 +56,7 @@ const GifContainer: React.FC<IGifContainerProps> = ({ gif }) => {
                         className='pl-2 '>
                         <HandThumbDownIcon className="w-5" />
                     </span>
-                    <span className="text-xs">{gif.downVotes?.toString()}</span>
+                    <span className="text-xs">{downVotes}</span>
                 </div>
             </div>
         </div>

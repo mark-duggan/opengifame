@@ -3,6 +3,7 @@ import type { GetServerSideProps, NextPage } from "next";
 import { Gif } from "models"
 import { GifContainer } from "components";
 import { getBrowserId } from "../utils/browser";
+import { mapGif } from "utils/mapping/gif";
 
 interface IHomeProps {
     gifs: Gif[]
@@ -39,18 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
             }
         }
     });
-    const gifs = await Promise.all(results.map(async (gif): Promise<Gif> => {
-        return {
-            id: gif.id,
-            title: gif.title,
-            description: gif.description,
-            fileName: gif.fileName,
-            dateCreated: gif.createdAt.toISOString(),
-            upVotes: gif._count.upVotes,
-            downVotes: gif._count.downVotes,
-            hasVoted: false
-        }
-    }))
+    const gifs = await Promise.all(results.map(async (gif): Promise<Gif> => mapGif(gif)));
     return {
         props: {
             gifs

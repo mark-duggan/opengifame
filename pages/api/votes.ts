@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 import { getBrowserId } from "utils/browser";
 import qs from "querystring";
+import { mapGif } from "utils/mapping/gif";
 
 export default async function handler(
   req: NextApiRequest,
@@ -58,7 +59,23 @@ const _processDownvote = async (
       gifId: gifId as string,
     },
   });
-  return res.status(200).json(result);
+  const response = await prisma.gif.findUnique({
+    where: {
+      id: gifId,
+    },
+    include: {
+      _count: {
+        select: {
+          upVotes: true,
+          downVotes: true,
+        },
+      },
+    },
+  });
+  if (response !== null) {
+    return res.status(200).json(mapGif(response));
+  }
+  return res.status(404);
 };
 const _processUpvote = async (
   res: NextApiResponse,
@@ -98,5 +115,22 @@ const _processUpvote = async (
       gifId: gifId as string,
     },
   });
-  return res.status(200).json(result);
+
+  const response = await prisma.gif.findUnique({
+    where: {
+      id: gifId,
+    },
+    include: {
+      _count: {
+        select: {
+          upVotes: true,
+          downVotes: true,
+        },
+      },
+    },
+  });
+  if (response !== null) {
+    return res.status(200).json(mapGif(response));
+  }
+  return res.status(404);
 };

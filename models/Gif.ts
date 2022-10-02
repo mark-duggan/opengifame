@@ -4,7 +4,7 @@ export default interface Gif {
   description: string | null;
   fileName: string;
   dateCreated: string;
-  upVotes: Number;
-  downVotes: Number;
+  upVotes: number;
+  downVotes: number;
   hasVoted: Boolean;
 }

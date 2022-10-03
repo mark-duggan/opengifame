@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image';
+import { LoginButton } from '@components';
 
 const Navbar = () => {
     return (
@@ -19,12 +20,7 @@ const Navbar = () => {
                         </div>
                     </div>
                     <div className="hidden sm:ml-6 sm:flex sm:items-center">
-                        <button type="button" className="p-1 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            <span className="sr-only">View notifications</span>
-                            <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                            </svg>
-                        </button>
+                        <LoginButton />
                     </div>
                     <div className="flex items-center -mr-2 sm:hidden">
                         { /* Mobile menu button */}

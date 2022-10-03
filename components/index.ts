@@ -1,2 +1,3 @@
 import GifContainer from "./widgets/GifContainer";
-export { GifContainer };
+import LoginButton from "./widgets/login/LoginButton";
+export { GifContainer, LoginButton };

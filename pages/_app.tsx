@@ -1,4 +1,6 @@
 import React from 'react'
+import { SessionProvider } from "next-auth/react"
+import { Session } from "next-auth"
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { PageLayout } from 'components/layout'
@@ -6,7 +8,7 @@ import { generateBrowserId } from 'utils/browser'
 import Cookies from 'js-cookie'
 import Head from 'next/head'
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppProps<{ session: Session }>) => {
     React.useEffect(() => {
         const checkBrowserId = async () => {
             const storedId = localStorage.getItem('__effp')
@@ -19,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             .catch(console.error);
     }, [])
     return (
-        <>
+        <SessionProvider session={session}>
             <Head>
                 <title>Frasier Gifs</title>
                 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -33,7 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <PageLayout>
                 <Component {...pageProps} />
             </PageLayout>
-        </>
+        </SessionProvider>
     )
 }
 

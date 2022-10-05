@@ -2,8 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import type { GetServerSideProps, NextPage } from "next";
 import { Gif } from "models"
 import { GifContainer } from "components";
-import { getBrowserId } from "../utils/browser";
-import { mapGif } from "utils/mapping/gif";
+import { getBrowserId } from "@lib/browser";
+import { mapGif } from "@lib/mapping/gif";
 
 interface IHomeProps {
     gifs: Gif[]

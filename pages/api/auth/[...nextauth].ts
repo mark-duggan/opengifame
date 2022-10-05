@@ -1,26 +1,38 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, {NextAuthOptions} from "next-auth";
+import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
+import prisma from "@lib/prismadb";
+import {confirmPassword, hashPassword} from "@lib/crypt";
+import {has, omit} from "lodash";
 
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
   },
+  secret: process.env.SECRET_KEY,
   providers: [
     CredentialsProvider({
       type: "credentials",
       credentials: {},
-      authorize(credentials, request) {
-        const { email, password } = credentials as {
-          email: string;
-          password: string;
-        };
-        if (
-          email !== "fergal.moran+frasiergifs@gmail.com" ||
-          password !== "secret"
-        ) {
+      authorize: async (credentials, request) => {
+        if (!credentials) {
           return null;
         }
-        return { id: 1234, name: "Fergal Moran" };
+        const user = await prisma.user.findUnique({
+          where: {email: credentials.email},
+          select: {
+            id: true,
+            email: true,
+            password: true,
+          },
+        });
+        const hashed = await confirmPassword(credentials.password, user.password);
+        if (hashed) {
+          return omit(user, "password")
+        }
+
+        return null;
       },
     }),
   ],

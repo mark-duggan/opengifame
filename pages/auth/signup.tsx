@@ -1,21 +1,37 @@
 import { signIn } from 'next-auth/react';
 import React, { FormEventHandler } from 'react'
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
+import { logger } from '@lib/logger';
 
-const SigninPage = () => {
-    const [userInfo, setUserInfo] = React.useState({ email: "fergal.moran+frasiergifs@gmail.com", password: "secret" })
+const SignUpPage = () => {
+    const router = useRouter();
+    const [userInfo, setUserInfo] = React.useState({
+        email: "fergal.moran+frasiergifs@gmail.com",
+        password: "secret",
+        repeatPassword: "secret"
+    })
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
         //TODO: validation
         e.preventDefault();
-        const res = await signIn('credentials', {
-            email: userInfo.email,
-            password: userInfo.password,
-            redirect: false
-        })
-        if (res?.status === 200) {
-            Router.replace("/")
+        try {
+            const res = await fetch(`/api/user/create`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: userInfo.email,
+                    password: userInfo.password
+                }),
+            });
+            logger.debug(`res`, res);
+            router.push(
+                `signin${router.query.callbackUrl
+                    ? `?callbackUrl=${router.query.callbackUrl}`
+                    : ""
+                }`,
+            );
+        } catch (error) {
+            console.error(error);
         }
-        console.log('signin', 'handleSubmit', res);
     }
 
     return (
@@ -27,11 +43,7 @@ const SigninPage = () => {
                     className="w-auto h-16 mx-auto rounded-full"
                     src={`/img/sign-in.gif`} /> */}
                 <img className="w-auto h-32 mx-auto rounded-full" src={`/img/sign-in.gif`} alt="Workflow" />
-                <h2 className="mt-2 text-3xl font-extrabold text-center text-gray-800">Sign in to your account</h2>
-                <p className="mt-2 text-sm text-center text-gray-600">
-                    Or
-                    <a href="/auth/signup" className="font-medium text-indigo-600 hover:text-indigo-500"> create a new account </a>
-                </p>
+                <h2 className="mt-2 text-3xl font-extrabold text-center text-gray-800">Create new account</h2>
             </div>
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -57,20 +69,20 @@ const SigninPage = () => {
                                     className="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                             </div>
                         </div>
-
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                                <input id="remember-me" name="remember-me" type="checkbox" className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
-                                <label htmlFor="remember-me" className="block ml-2 text-sm text-gray-900"> Remember me </label>
-                            </div>
-
-                            <div className="text-sm">
-                                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500"> Forgot your password? </a>
+                        <div>
+                            <label htmlFor="repeat-password" className="block text-sm font-medium text-gray-700"> Repeat password </label>
+                            <div className="mt-1">
+                                <input id="repeat-password" type="password" autoComplete="current-password" required
+                                    value={userInfo.repeatPassword}
+                                    onChange={({ target }) => setUserInfo({ ...userInfo, repeatPassword: target.value })}
+                                    className="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                             </div>
                         </div>
 
                         <div>
-                            <button type="submit" className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Sign in</button>
+                            <button type="submit" className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Create account
+                            </button>
                         </div>
                     </form>
 
@@ -119,4 +131,4 @@ const SigninPage = () => {
     )
 }
 
-export default SigninPage
+export default SignUpPage

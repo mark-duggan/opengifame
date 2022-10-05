@@ -1,9 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
-import { getBrowserId } from "utils/browser";
+import { getBrowserId } from "@lib/browser";
 import qs from "querystring";
-import { mapGif } from "utils/mapping/gif";
+import { mapGif } from "@lib/mapping/gif";
 
 export default async function handler(
   req: NextApiRequest,

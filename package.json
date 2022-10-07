@@ -14,6 +14,7 @@
     "@heroicons/react": "^2.0.11",
     "@next-auth/prisma-adapter": "^1.0.4",
     "@prisma/client": "^4.4.0",
+    "@tailwindcss/forms": "^0.5.3",
     "@types/bcrypt": "^5.0.0",
     "@types/cookie": "^0.5.1",
     "@types/js-cookie": "^3.0.2",
@@ -41,5 +42,8 @@
     "tailwindcss": "^3.1.8",
     "typescript": "4.8.4",
     "uuid": "^9.0.0"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   }
 }

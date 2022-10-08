@@ -1,9 +1,19 @@
 import React from "react";
-import {GetServerSideProps} from 'next';
+import { GetServerSideProps, NextPage } from "next";
+import { Season, Episode } from "models";
+import prisma from "@lib/prismadb";
 
-const UploadPage = () => {
-  const [seasons, setSeasons] = React.useState([]);
-  const [episodes, setEpisodes] = React.useState([]);
+interface IUploadProps {
+  seasons: Season[];
+}
+const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
+  const [seasonEpisodes, setSeasonEpisodes] = React.useState<Array<Episode>>(
+    []
+  );
+  const [currentSeason, setCurrentSeason] = React.useState<Season>(seasons[0]);
+  React.useEffect(() => {
+    setSeasonEpisodes(currentSeason.episodes);
+  }, [currentSeason]);
 
   return (
     <div className="md:grid md:grid-cols-3 md:gap-6">
@@ -60,8 +70,7 @@ const UploadPage = () => {
                 <label className="block text-sm font-medium text-gray-700">
                   The gif
                 </label>
-                <div
-                  className="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
+                <div className="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
                   <div className="space-y-1 text-center">
                     <svg
                       className="w-12 h-12 mx-auto text-gray-400"
@@ -98,45 +107,59 @@ const UploadPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-6 gap-6">
-                <div className="col-span-6 sm:col-span-3">
+
+              <div className="grid grid-cols-3 gap-6">
+                <p className="col-span-3 text-sm text-gray-500">
+                  These are optional but highly desired.
+                </p>
+                <div className="col-span-1">
                   <label
                     htmlFor="season"
                     className="block text-sm font-medium text-gray-700"
                   >
                     Season
                   </label>
-                  <input
-                    type="text"
+                  <select
+                    onChange={($event) =>
+                      setCurrentSeason(
+                        seasons.filter(
+                          (f) => f.number === Number($event.currentTarget.value)
+                        )[0]
+                      )
+                    }
                     id="season"
-                    autoComplete="given-name"
-                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  />
+                    className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  >
+                    {seasons.map((s) => (
+                      <option key={s.id}>{s.number}</option>
+                    ))}
+                  </select>
                 </div>
-
-                <div className="col-span-6 sm:col-span-3">
+                <div className="col-span-2">
                   <label
-                    htmlFor="last-name"
+                    htmlFor="episode"
                     className="block text-sm font-medium text-gray-700"
                   >
                     Episode
                   </label>
-                  <input
-                    type="text"
-                    id="last-name"
-                    autoComplete="family-name"
-                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  />
+                  <select
+                    id="episode"
+                    className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  >
+                    {seasonEpisodes.map((s) => (
+                      <option key={s.id}>{s.name}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>
 
-            <div className="px-4 py-3 text-right bg-gray-50 sm:px-6">
+            <div className="w-full px-4 py-3 text-right bg-gray-50 sm:px-6">
               <button
                 type="submit"
                 className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Save
+                Upload Gif
               </button>
             </div>
           </div>
@@ -146,7 +169,22 @@ const UploadPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({req}) => {
-
-}
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const seasons = await prisma.season.findMany({
+    include: {
+      episodes: {
+        select: {
+          id: true,
+          name: true,
+          seasonId: true,
+        },
+      },
+    },
+  });
+  return {
+    props: {
+      seasons,
+    },
+  };
+};
 export default UploadPage;

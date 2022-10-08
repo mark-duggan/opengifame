@@ -1,4 +1,6 @@
-import type Gif from "./Gif";
-import type VoteModel from "./VoteModel";
+import Episode from "./episode";
+import type Gif from "./gif";
+import Season from "./season";
+import type VoteModel from "./vote";
 
-export type { Gif, VoteModel };
+export type { Gif, VoteModel, Season, Episode };

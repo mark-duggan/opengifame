@@ -93,16 +93,16 @@ model DownVotes {
 
 model Season {
   id       String    @id @default(uuid())
-  number   Int @unique
+  number   Int       @unique
   episodes Episode[]
 }
 
 model Episode {
-  id     String @id @default(uuid())
-  number Int
-  name   String
-  airDate DateTime
-  Seasons  Season @relation(fields: [seasonId], references: [id])
+  id       String   @id @default(uuid())
+  number   Int
+  name     String
+  airDate  DateTime
+  Season   Season   @relation(fields: [seasonId], references: [id])
   seasonId String
 
   @@unique([number, seasonId])

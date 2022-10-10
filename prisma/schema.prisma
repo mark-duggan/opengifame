@@ -59,14 +59,14 @@ model VerificationToken {
 model Gif {
   id String @id @default(cuid())
 
-  title       String  @db.VarChar(100)
-  description String? @db.VarChar(2000)
-  searchTerms String? @db.VarChar(2000)
+  title         String      @db.VarChar(100)
+  description   String?     @db.VarChar(2000)
+  searchTerms   String?     @db.VarChar(2000)
   //this is temporary, filenames should always match the GUID above
-  fileName    String  @db.VarChar(100)
-
-  upVotes   UpVotes[]
-  downVotes DownVotes[]
+  fileName      String      @db.VarChar(100)
+  publicVisible Boolean     @default(false)
+  upVotes       UpVotes[]
+  downVotes     DownVotes[]
 
   createdAt DateTime @default(now())
 

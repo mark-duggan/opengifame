@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@lib/prismadb";
-import { mapGif } from "@lib/mapping/gif";
 
 export default async function handle(
   req: NextApiRequest,
@@ -9,18 +8,16 @@ export default async function handle(
   const {
     query: { q },
   } = req;
-  if (q && q.length > 3) {
-    const results = await prisma.tags.findMany({
-      where: {
-        name: {
-          contains: q as string,
-        },
+  const results = await prisma.tags.findMany({
+    where: {
+      name: {
+        contains: q as string,
+        mode: "insensitive",
       },
-      select: {
-        name: true,
-      },
-    });
-    return res.status(200).json(results);
-  }
-  return res.status(400);
+    },
+    select: {
+      name: true,
+    },
+  });
+  return res.status(200).json(results);
 }

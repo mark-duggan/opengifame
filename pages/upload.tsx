@@ -2,6 +2,7 @@ import React from "react";
 import { GetServerSideProps, NextPage } from "next";
 import { Season, Episode } from "models";
 import prisma from "@lib/prismadb";
+import { TaggedInput } from "@components";
 
 interface IUploadProps {
   seasons: Season[];
@@ -29,8 +30,9 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
       </div>
       <div className="mt-5 md:mt-0 md:col-span-2">
         <form
-          action="#"
-          method="POST"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
         >
           <div className="shadow sm:rounded-md sm:overflow-hidden">
             <div className="px-4 py-5 space-y-6 bg-white sm:p-6">
@@ -107,11 +109,11 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
                   </div>
                 </div>
               </div>
-
+              <p className="col-span-3 text-sm text-gray-500">
+                These are optional but highly desired.
+              </p>
+              <TaggedInput />
               <div className="grid grid-cols-3 gap-6">
-                <p className="col-span-3 text-sm text-gray-500">
-                  These are optional but highly desired.
-                </p>
                 <div className="col-span-1">
                   <label
                     htmlFor="season"

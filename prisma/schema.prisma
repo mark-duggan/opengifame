@@ -44,6 +44,8 @@ model User {
   password String
   accounts Account[]
   sessions Session[]
+  Tags     Tags[]
+  Gif      Gif[]
 }
 
 model VerificationToken {
@@ -55,7 +57,7 @@ model VerificationToken {
 }
 
 model Gif {
-  id String @id @default(uuid())
+  id String @id @default(cuid())
 
   title       String  @db.VarChar(100)
   description String? @db.VarChar(2000)
@@ -67,10 +69,14 @@ model Gif {
   downVotes DownVotes[]
 
   createdAt DateTime @default(now())
+
+  //TODO: remove nullable
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 }
 
 model UpVotes {
-  id        String @id @default(uuid())
+  id        String @id @default(cuid())
   browserId String @db.VarChar(1000)
 
   createdAt DateTime @default(now())
@@ -81,7 +87,7 @@ model UpVotes {
 }
 
 model DownVotes {
-  id        String @id @default(uuid())
+  id        String @id @default(cuid())
   browserId String @db.VarChar(1000)
 
   createdAt DateTime @default(now())
@@ -92,13 +98,13 @@ model DownVotes {
 }
 
 model Season {
-  id       String    @id @default(uuid())
+  id       String    @id @default(cuid())
   number   Int       @unique
   episodes Episode[]
 }
 
 model Episode {
-  id       String   @id @default(uuid())
+  id       String   @id @default(cuid())
   number   Int
   name     String
   airDate  DateTime
@@ -106,4 +112,11 @@ model Episode {
   seasonId String
 
   @@unique([number, seasonId])
+}
+
+model Tags {
+  id     String @id @default(cuid())
+  name   String @unique()
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 }

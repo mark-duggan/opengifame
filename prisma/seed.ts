@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { hashPassword } from "../lib/crypt";
 
 const prisma = new PrismaClient();
 type Episode = {
@@ -1600,7 +1601,52 @@ const episodes: Array<Episode> = [
   },
 ];
 
+const tags = [
+  "Frasier",
+  "Niles",
+  "Eddie",
+  "Daphne",
+  "Roz",
+  "Bulldog",
+  "Noel",
+  "Kenny",
+  "Wine",
+  "Sherry",
+];
+
 async function main() {
+  //add admin user
+  const adminUser = process.env.ADMIN_USER as string;
+  const adminPassword = await hashPassword(
+    process.env.ADMIN_PASSWORD as string
+  );
+  console.log("seed", "creating user", adminUser);
+
+  const user = await prisma.user.upsert({
+    where: {
+      email: adminUser,
+    },
+    update: {
+      password: adminPassword,
+    },
+    create: {
+      email: adminUser,
+      password: adminPassword,
+    },
+  });
+  for (const tag of tags) {
+    const newTag = await prisma.tags.upsert({
+      where: {
+        name: tag,
+      },
+      update: {},
+      create: {
+        name: tag,
+        userId: user.id,
+      },
+    });
+  }
+  //add seasons and episodes
   for (const e of episodes) {
     const season = await prisma.season.upsert({
       where: { number: e.season },
@@ -1626,21 +1672,6 @@ async function main() {
     });
     console.log("seed", episode);
   }
-  // const alice = await prisma.user.upsert({
-  //   where: { email: "alice@prisma.io" },
-  //   update: {},
-  //   create: {
-  //     email: "alice@prisma.io",
-  //     name: "Alice",
-  //     posts: {
-  //       create: {
-  //         title: "Check out Prisma with Next.js",
-  //         content: "https://www.prisma.io/nextjs",
-  //         published: true,
-  //       },
-  //     },
-  //   },
-  // });
 }
 
 main()

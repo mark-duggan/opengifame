@@ -1,6 +1,9 @@
 import React, { KeyboardEventHandler } from "react";
 
-const TaggedInput = () => {
+interface ITaggedInputProps {
+  label: string;
+}
+const TaggedInput: React.FC<ITaggedInputProps> = ({ label }) => {
   const [isSearching, setIsSearching] = React.useState(false);
   const [searchText, setSearchText] = React.useState<string>("");
   const [searchResults, setSearchResults] = React.useState<Array<string>>([]);
@@ -43,9 +46,9 @@ const TaggedInput = () => {
     <>
       <label
         htmlFor="{name}"
-        className="block text-sm font-medium text-gray-900 "
+        className="block text-sm font-medium text-gray-900"
       >
-        Tags
+        {label}
       </label>
       <div className="flex shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5">
         {tags.map((tag) => (

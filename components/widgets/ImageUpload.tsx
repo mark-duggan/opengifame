@@ -22,8 +22,9 @@ const ImageUpload = () => {
             <button
               type="button"
               className="absolute top-0 right-0 p-2 m-2 text-white rounded-full bg-gray-200/10 hover:bg-blue-800"
-              onClick={() => setImage(null)}
+              onClick={() => setImage("")}
             >
+              {""}
               <XMarkIcon className="w-5 h-5" />
             </button>
           </div>

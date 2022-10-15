@@ -1,29 +1,29 @@
-import React from "react";
-import Turnstone from "turnstone";
+import React from 'react';
+import Turnstone from 'turnstone';
 
 const TaggedInput = () => {
   const styles = {
-    input: "w-full border py-2 px-4 text-lg outline-none rounded-md",
+    input: 'w-full border py-2 px-4 text-lg outline-none rounded-md',
     listbox:
-      "cursor-pointer w-full bg-white text-slate-900 rounded-md border-gray-800",
+      'cursor-pointer w-full bg-white text-slate-900 rounded-md border-gray-800',
     clearButton:
-      "absolute inset-y-0 text-lg right-0 w-10 inline-flex items-center justify-center bg-netural-700 hover:text-red-500",
-    noItems: "cursor-default text-center",
-    match: "font-semibold",
-    groupHeading: "px-5 py-3 text-pink-500",
+      'absolute inset-y-0 text-lg right-0 w-10 inline-flex items-center justify-center bg-netural-700 hover:text-red-500',
+    noItems: 'cursor-default text-center',
+    match: 'font-semibold',
+    groupHeading: 'px-5 py-3 text-pink-500',
   };
   const listbox = {
-    displayField: "name",
+    displayField: 'name',
     data: async (query: string) => {
       const res = await fetch(`api/tags/search?q=${query}`);
       const data = await res.json();
-      console.log("TaggedInput", "response", data);
+      console.log('TaggedInput', 'response', data);
       return data;
     },
-    searchType: "contains",
+    searchType: 'contains',
   };
   const Item = ({ item }) => {
-    console.log("TaggedInput", "Item", item);
+    console.log('TaggedInput', 'Item', item);
     return (
       <span
         key="{result}"

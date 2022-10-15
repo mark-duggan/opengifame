@@ -1,5 +1,5 @@
-import type { Gif as modelGif } from "@models";
-import { Gif } from "@prisma/client";
+import type { Gif as modelGif } from '@models';
+import { Gif } from '@prisma/client';
 
 export const mapGif = (
   gif: Gif & { _count: { upVotes: number; downVotes: number } }
@@ -8,7 +8,8 @@ export const mapGif = (
     id: gif.id,
     title: gif.title,
     description: gif.description,
-    fileName: gif.fileName,
+    fileName: `/uploads/${gif.id}.gif`,
+    searchTerms: gif.searchTerms,
     dateCreated: gif.createdAt.toISOString(),
     upVotes: gif._count.upVotes,
     downVotes: gif._count.downVotes,

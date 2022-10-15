@@ -1,6 +1,6 @@
-import React from "react";
-import Image from "next/image";
-import { LoginButton } from "@components";
+import React from 'react';
+import Image from 'next/image';
+import { LoginButton } from '@components';
 
 const Navbar = () => {
   return (
@@ -14,7 +14,7 @@ const Navbar = () => {
                 width={48}
                 height={48}
                 className="rounded-full"
-                src={"/img/header-logo.gif"}
+                src={'/img/header-logo.gif'}
               />
               <h1 className="ml-4 text-2xl text-gray-700 text-bold">
                 I&apos;m pro opera and I vote!
@@ -26,15 +26,15 @@ const Navbar = () => {
                 className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-indigo-500"
                 aria-current="page"
               >
-                {" "}
-                Upload{" "}
+                {' '}
+                Upload{' '}
               </a>
               <a
                 href="#"
                 className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
               >
-                {" "}
-                Request{" "}
+                {' '}
+                Request{' '}
               </a>
             </div>
           </div>

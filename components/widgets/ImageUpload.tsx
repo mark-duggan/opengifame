@@ -1,13 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-
-const ImageUpload = () => {
+import React from 'react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+interface IImageUploadProps {
+  value: string | undefined;
+  onChange: (image: File) => void;
+}
+const ImageUpload: React.FC<IImageUploadProps> = ({ onChange }) => {
   const [image, setImage] = React.useState<string>();
   const onImageChange = ($event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("ImageUpload", "onImageChange", $event);
+    console.log('ImageUpload', 'onImageChange', $event);
     if ($event.target.files) {
-      setImage(URL.createObjectURL($event.target.files[0]));
+      const url = URL.createObjectURL($event.target.files[0]);
+      setImage(url);
+      onChange($event.target.files[0]);
     }
   };
   return (
@@ -22,9 +27,9 @@ const ImageUpload = () => {
             <button
               type="button"
               className="absolute top-0 right-0 p-2 m-2 text-white rounded-full bg-gray-200/10 hover:bg-blue-800"
-              onClick={() => setImage("")}
+              onClick={() => setImage('')}
             >
-              {""}
+              {''}
               <XMarkIcon className="w-5 h-5" />
             </button>
           </div>

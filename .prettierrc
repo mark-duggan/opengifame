@@ -1,3 +1,5 @@
 {
-  "singleAttributePerLine": true
+  "singleAttributePerLine": true,
+  "singleQuote": true,
+  "semi": true
 }

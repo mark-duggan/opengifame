@@ -61,9 +61,7 @@ model Gif {
 
   title         String      @db.VarChar(100)
   description   String?     @db.VarChar(2000)
-  searchTerms   String?     @db.VarChar(2000)
-  //this is temporary, filenames should always match the GUID above
-  fileName      String      @db.VarChar(100)
+  searchTerms   String[]    @db.VarChar(2000)
   publicVisible Boolean     @default(false)
   upVotes       UpVotes[]
   downVotes     DownVotes[]

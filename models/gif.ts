@@ -3,6 +3,7 @@ export default interface Gif {
   title: string;
   description: string | null;
   fileName: string;
+  searchTerms: string[];
   dateCreated: string;
   upVotes: number;
   downVotes: number;

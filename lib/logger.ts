@@ -1,6 +1,6 @@
-import log from "loglevel";
-import chalk from "chalk";
-import prefix from "loglevel-plugin-prefix";
+import log from 'loglevel';
+import chalk from 'chalk';
+import prefix from 'loglevel-plugin-prefix';
 
 const colors = {
   TRACE: chalk.magenta,
@@ -10,8 +10,8 @@ const colors = {
   ERROR: chalk.red,
 };
 
-if (process.env.NODE_ENV == "development") {
-  log.setLevel("debug");
+if (process.env.NODE_ENV == 'development') {
+  log.setLevel('debug');
 }
 
 prefix.reg(log);

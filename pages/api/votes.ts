@@ -1,9 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
-import { getBrowserId } from "@lib/browser";
-import qs from "querystring";
-import { mapGif } from "@lib/mapping/gif";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { PrismaClient } from '@prisma/client';
+import { getBrowserId } from '@lib/browser';
+import qs from 'querystring';
+import { mapGif } from '@lib/mapping/gif';
 
 export default async function handler(
   req: NextApiRequest,
@@ -16,7 +16,7 @@ export default async function handler(
   if (!gifId || !browserId) {
     return res.status(400);
   }
-  if (isUp === "1") {
+  if (isUp === '1') {
     return _processUpvote(res, gifId as string, browserId);
   } else {
     return _processDownvote(res, gifId as string, browserId);
@@ -38,7 +38,7 @@ const _processDownvote = async (
 
   if (exists !== 0) {
     return res.status(403).json({
-      message: "You have already downvoted on this gif",
+      message: 'You have already downvoted on this gif',
     });
   }
 
@@ -93,7 +93,7 @@ const _processUpvote = async (
 
   if (exists !== 0) {
     return res.status(403).json({
-      message: "You have already upvoted this gif",
+      message: 'You have already upvoted this gif',
     });
   }
 

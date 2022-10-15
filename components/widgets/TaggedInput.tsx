@@ -1,14 +1,25 @@
-import React, { KeyboardEventHandler } from "react";
+import React, { KeyboardEventHandler } from 'react';
 
 interface ITaggedInputProps {
   label: string;
+  value: string[];
+  onChange: (tags: string[]) => void;
 }
-const TaggedInput: React.FC<ITaggedInputProps> = ({ label }) => {
+const TaggedInput: React.FC<ITaggedInputProps> = ({
+  label,
+  value,
+  onChange,
+}) => {
   const [isSearching, setIsSearching] = React.useState(false);
-  const [searchText, setSearchText] = React.useState<string>("");
+  const [searchText, setSearchText] = React.useState<string>('');
   const [searchResults, setSearchResults] = React.useState<Array<string>>([]);
-  const [tags, setTags] = React.useState<Array<string>>([]);
+  const [tags, setTags] = React.useState<Array<string>>(value);
   let searchInput: any;
+
+  React.useEffect(() => {
+    console.log('TaggedInput', 'callingOnChange', tags);
+    onChange(tags);
+  }, [tags, onChange]);
   const removeTag = (tag: string) => {
     setTags(tags.filter((obj) => obj !== tag));
   };
@@ -31,7 +42,7 @@ const TaggedInput: React.FC<ITaggedInputProps> = ({ label }) => {
     await searchTags(value);
   };
   const handleKeyPress = ($event: React.KeyboardEvent<HTMLInputElement>) => {
-    if ($event.code === "Enter" || $event.code === "NumpadEnter") {
+    if ($event.code === 'Enter' || $event.code === 'NumpadEnter') {
       __addTag(searchText);
     }
   };
@@ -39,7 +50,7 @@ const TaggedInput: React.FC<ITaggedInputProps> = ({ label }) => {
     setTags([...tags, tag]);
     setSearchResults([]);
     setIsSearching(false);
-    setSearchText("");
+    setSearchText('');
   };
   const doResultClick = ($event: any) => __addTag($event.target.textContent);
   return (
@@ -51,33 +62,34 @@ const TaggedInput: React.FC<ITaggedInputProps> = ({ label }) => {
         {label}
       </label>
       <div className="flex shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5">
-        {tags.map((tag) => (
-          <span
-            key={tag}
-            className="mr-1 inline-flex items-center py-0.5 pl-2 pr-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-700"
-          >
-            {tag}
-            <button
-              onClick={() => removeTag(tag)}
-              type="button"
-              className="flex-shrink-0 ml-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-indigo-400 hover:bg-indigo-200 hover:text-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-white"
+        {tags &&
+          tags.map((tag) => (
+            <span
+              key={tag}
+              className="mr-1 inline-flex items-center py-0.5 pl-2 pr-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-700"
             >
-              <span className="sr-only">{tag}</span>
-              <svg
-                className="w-2 h-2"
-                stroke="currentColor"
-                fill="none"
-                viewBox="0 0 8 8"
+              {tag}
+              <button
+                onClick={() => removeTag(tag)}
+                type="button"
+                className="flex-shrink-0 ml-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-indigo-400 hover:bg-indigo-200 hover:text-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-white"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeWidth={1.5}
-                  d="M1 1l6 6m0-6L1 7"
-                />
-              </svg>
-            </button>
-          </span>
-        ))}
+                <span className="sr-only">{tag}</span>
+                <svg
+                  className="w-2 h-2"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 8 8"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeWidth={1.5}
+                    d="M1 1l6 6m0-6L1 7"
+                  />
+                </svg>
+              </button>
+            </span>
+          ))}
         <input
           value={searchText}
           onKeyDown={handleKeyPress}

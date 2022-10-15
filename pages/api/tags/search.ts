@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "@lib/prismadb";
+import { NextApiRequest, NextApiResponse } from 'next';
+import prisma from '@lib/prismadb';
 
 export default async function handle(
   req: NextApiRequest,
@@ -12,7 +12,7 @@ export default async function handle(
     where: {
       name: {
         contains: q as string,
-        mode: "insensitive",
+        mode: 'insensitive',
       },
     },
     select: {

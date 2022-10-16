@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-accent/50">
       <div className="navbar-start">
         <div className="dropdown">
           <label
@@ -43,7 +43,14 @@ const Navbar = () => {
           <a className="text-xl normal-case btn btn-ghost">Open Gifame</a>
         </Link>
       </div>
-      <div className="hidden navbar-center lg:flex">
+      <div className="hidden lg:flex">
+        <div className="form-control">
+          <input
+            type="text"
+            placeholder="Search"
+            className="input input-bordered"
+          />
+        </div>
         <ul className="p-0 menu menu-horizontal">
           <li>
             <a href="upload">Upload</a>

@@ -61,35 +61,37 @@ const TaggedInput: React.FC<ITaggedInputProps> = ({
       >
         {label}
       </label>
-      <div className="flex shadow-sm border border-accent text-sm rounded-lg w-full p-2.5">
-        {tags &&
-          tags.map((tag) => (
-            <span
-              key={tag}
-              className="mr-1 inline-flex items-center py-0.5 pl-2 pr-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-700"
-            >
-              {tag}
-              <button
-                onClick={() => removeTag(tag)}
-                type="button"
-                className="flex-shrink-0 ml-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center "
+      <div className="flex w-full text-sm align-middle border rounded-lg shadow-sm border-accent ">
+        <div className="flex flex-row pt-3 pl-2 space-x-1">
+          {tags &&
+            tags.map((tag) => (
+              <span
+                key={tag}
+                className="badge badge-primary badge-lg py-0.5"
               >
-                <span className="sr-only">{tag}</span>
-                <svg
-                  className="w-2 h-2"
-                  stroke="currentColor"
-                  fill="none"
-                  viewBox="0 0 8 8"
+                {tag}
+                <button
+                  onClick={() => removeTag(tag)}
+                  type="button"
+                  className="flex-shrink-0 ml-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center "
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth={1.5}
-                    d="M1 1l6 6m0-6L1 7"
-                  />
-                </svg>
-              </button>
-            </span>
-          ))}
+                  <span className="sr-only">{tag}</span>
+                  <svg
+                    className="w-2 h-2"
+                    stroke="currentColor"
+                    fill="none"
+                    viewBox="0 0 8 8"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeWidth={1.5}
+                      d="M1 1l6 6m0-6L1 7"
+                    />
+                  </svg>
+                </button>
+              </span>
+            ))}
+        </div>
         <input
           value={searchText}
           onKeyDown={handleKeyPress}
@@ -105,7 +107,7 @@ const TaggedInput: React.FC<ITaggedInputProps> = ({
         >
           <svg
             aria-hidden="true"
-            className="w-4 h-4 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+            className="w-4 h-4 mr-2 "
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

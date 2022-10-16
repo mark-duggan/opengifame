@@ -68,7 +68,7 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
       <div className="md:col-span-2">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="shadow sm:rounded-md sm:overflow-hidden">
-            <div className="px-4 space-y-4 sm:p-6">
+            <div className="px-4 space-y-4">
               <div className="col-span-3 sm:col-span-2">
                 <label
                   htmlFor="title"

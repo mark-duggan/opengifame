@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { LoginButton } from '@components';
+import Link from 'next/link';
 
 const Navbar = () => {
   return (
@@ -38,7 +39,9 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <a className="text-xl normal-case btn btn-ghost">daisyUI</a>
+        <Link href="/">
+          <a className="text-xl normal-case btn btn-ghost">Open Gifame</a>
+        </Link>
       </div>
       <div className="hidden navbar-center lg:flex">
         <ul className="p-0 menu menu-horizontal">

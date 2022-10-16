@@ -39,12 +39,12 @@ const GifContainer: React.FC<IGifContainerProps> = ({ gif }) => {
       <div className="flex flex-row p-2">
         <p className="flex-1 text-base tracking-tight text-slate-500">
           {gif.searchTerms?.map((t) => (
-            <span
+            <div
               key={t}
-              className="bg-harvestwheat text-gray-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded "
+              className="mr-0.5 badge badge-secondary badge-sm badge-outline"
             >
               {t}
-            </span>
+            </div>
           ))}
         </p>
         <div className="flex items-center justify-center space-x-1">

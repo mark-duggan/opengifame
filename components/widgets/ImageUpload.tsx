@@ -16,7 +16,7 @@ const ImageUpload: React.FC<IImageUploadProps> = ({ onChange }) => {
     }
   };
   return (
-    <div className="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
+    <div className="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-dashed rounded-md border-secondary">
       {image ? (
         <div>
           <div className="relative">
@@ -26,7 +26,7 @@ const ImageUpload: React.FC<IImageUploadProps> = ({ onChange }) => {
             />
             <button
               type="button"
-              className="absolute top-0 right-0 p-2 m-2 text-white rounded-full bg-gray-200/10 hover:bg-blue-800"
+              className="absolute top-0 right-0 p-2 m-2 rounded-full "
               onClick={() => setImage('')}
             >
               {''}
@@ -37,7 +37,7 @@ const ImageUpload: React.FC<IImageUploadProps> = ({ onChange }) => {
       ) : (
         <div className="space-y-1 text-center">
           <svg
-            className="w-12 h-12 mx-auto text-gray-400"
+            className="w-12 h-12 mx-auto text-base-content/70"
             stroke="currentColor"
             fill="none"
             viewBox="0 0 48 48"
@@ -50,10 +50,10 @@ const ImageUpload: React.FC<IImageUploadProps> = ({ onChange }) => {
               strokeLinejoin="round"
             />
           </svg>
-          <div className="flex text-sm text-gray-600">
+          <div className="flex text-sm text-base-content">
             <label
               htmlFor="gif-upload"
-              className="relative font-medium text-indigo-600 bg-white rounded-md cursor-pointer hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+              className="relative font-medium rounded-md cursor-pointer hover:text-accent badge badge-primary"
             >
               <span>Upload a file</span>
               <input
@@ -66,7 +66,7 @@ const ImageUpload: React.FC<IImageUploadProps> = ({ onChange }) => {
             </label>
             <p className="pl-1">or drag and drop</p>
           </div>
-          <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+          <p className="text-xs ">PNG, JPG, GIF up to 10MB</p>
         </div>
       )}
     </div>

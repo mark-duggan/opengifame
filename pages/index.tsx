@@ -29,18 +29,21 @@ const Home: NextPage<IHomeProps> = ({ gifs }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const browserId = getBrowserId(req.headers.cookie || '');
   const prisma = new PrismaClient();
 
   const results = await prisma.gif.findMany({
     take: 12,
-    orderBy: { title: 'asc' },
     include: {
       _count: {
         select: {
           upVotes: true,
           downVotes: true,
         },
+      },
+    },
+    orderBy: {
+      upVotes: {
+        _count: 'desc',
       },
     },
   });

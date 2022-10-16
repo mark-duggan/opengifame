@@ -37,7 +37,7 @@ const GifContainer: React.FC<IGifContainerProps> = ({ gif }) => {
         </div>
       </div>
       <div className="flex flex-row p-2">
-        <p className="flex-1 text-base tracking-tight text-slate-500">
+        <div className="flex-1 text-base tracking-tight text-slate-500">
           {gif.searchTerms?.map((t) => (
             <div
               key={t}
@@ -46,7 +46,7 @@ const GifContainer: React.FC<IGifContainerProps> = ({ gif }) => {
               {t}
             </div>
           ))}
-        </p>
+        </div>
         <div className="flex items-center justify-center space-x-1">
           <div className="flex transition duration-75 ease-in-out delay-150 hover:text-orange-700 hover:cursor-pointer">
             <span onClick={() => _doot(gif.id, true)}>

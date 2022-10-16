@@ -59,22 +59,20 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
     <div className="md:grid md:grid-cols-3 md:gap-6">
       <div className="md:col-span-1">
         <div className="px-4 sm:px-0">
-          <h3 className="text-lg font-medium leading-6 text-gray-900">
-            Upload a new gif
-          </h3>
-          <p className="mt-1 text-sm text-gray-600">
+          <h3 className="text-lg font-extrabold leading-6">Upload a new gif</h3>
+          <p className="my-3 text-sm text-base-content/70">
             The more info you can give us the better.
           </p>
         </div>
       </div>
-      <div className="mt-5 md:mt-0 md:col-span-2">
+      <div className="md:col-span-2">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="shadow sm:rounded-md sm:overflow-hidden">
-            <div className="px-4 py-5 space-y-6 bg-white sm:p-6">
+            <div className="px-4 space-y-4 sm:p-6">
               <div className="col-span-3 sm:col-span-2">
                 <label
                   htmlFor="title"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium"
                 >
                   Title
                 </label>
@@ -83,7 +81,7 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
                     {...register('title', { required: 'Title is required' })}
                     type="text"
                     name="title"
-                    className="flex-1 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 rounded-r-md sm:text-sm"
+                    className="flex-1 block w-full rounded-md input input-bordered rounded-r-md sm:text-sm"
                     placeholder="Title for this gif"
                   />
                 </div>
@@ -94,7 +92,7 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
               <div>
                 <label
                   htmlFor="description"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium"
                 >
                   Description
                 </label>
@@ -105,7 +103,7 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
                     })}
                     name="description"
                     rows={3}
-                    className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="block w-full mt-1 border rounded-md shadow-sm textarea textarea-bordered sm:text-sm"
                     placeholder="Description for this gif"
                   />
                 </div>
@@ -114,9 +112,7 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
                 </p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  The gif
-                </label>
+                <label className="block text-sm font-medium">The gif</label>
                 <Controller
                   control={control}
                   name="image"
@@ -128,9 +124,7 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
                   )}
                 />
               </div>
-              <p className="col-span-3 text-sm text-gray-500">
-                These are optional but highly desired.
-              </p>
+              <div className="pt-4 divider">optional stuff</div>
               <Controller
                 control={control}
                 name="terms"
@@ -145,10 +139,10 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
               <div className="grid grid-cols-3 gap-6">
                 <div className="col-span-1">
                   <label
+                    className="label"
                     htmlFor="season"
-                    className="block text-sm font-medium text-gray-700"
                   >
-                    Season
+                    <span className="label-text">Season</span>
                   </label>
                   <select
                     onChange={($event) =>
@@ -159,7 +153,7 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
                       )
                     }
                     id="season"
-                    className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="w-full max-w-xs select select-bordered"
                   >
                     {seasons.map((s) => (
                       <option key={s.id}>{s.number}</option>
@@ -168,14 +162,14 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
                 </div>
                 <div className="col-span-2">
                   <label
+                    className="label"
                     htmlFor="episode"
-                    className="block text-sm font-medium text-gray-700"
                   >
-                    Episode
+                    <span className="label-text">Episode</span>
                   </label>
                   <select
                     id="episode"
-                    className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="w-full select select-bordered"
                   >
                     {seasonEpisodes.map((s) => (
                       <option key={s.id}>{s.name}</option>
@@ -185,10 +179,10 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
               </div>
             </div>
 
-            <div className="w-full px-4 py-3 text-right bg-gray-50 sm:px-6">
+            <div className="w-full px-4 py-3 text-right ">
               <button
                 type="submit"
-                className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-harvestwheat hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full btn btn-primary"
               >
                 Upload Gif
               </button>

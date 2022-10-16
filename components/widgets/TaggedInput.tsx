@@ -57,11 +57,11 @@ const TaggedInput: React.FC<ITaggedInputProps> = ({
     <>
       <label
         htmlFor="{name}"
-        className="block text-sm font-medium text-gray-900"
+        className="block text-sm font-medium"
       >
         {label}
       </label>
-      <div className="flex shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5">
+      <div className="flex shadow-sm border border-accent text-sm rounded-lg w-full p-2.5">
         {tags &&
           tags.map((tag) => (
             <span
@@ -72,7 +72,7 @@ const TaggedInput: React.FC<ITaggedInputProps> = ({
               <button
                 onClick={() => removeTag(tag)}
                 type="button"
-                className="flex-shrink-0 ml-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-indigo-400 hover:bg-indigo-200 hover:text-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-white"
+                className="flex-shrink-0 ml-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center "
               >
                 <span className="sr-only">{tag}</span>
                 <svg
@@ -95,7 +95,7 @@ const TaggedInput: React.FC<ITaggedInputProps> = ({
           onKeyDown={handleKeyPress}
           onChange={handleChange}
           placeholder="Start typing and press enter"
-          className="w-full focus:outline-none"
+          className="w-full input focus:outline-none"
         />
       </div>
       {isSearching && (

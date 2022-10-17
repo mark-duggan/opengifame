@@ -1,1 +1,3 @@
-Gifs of Frasier (and Niles)
+# Open Gifame
+
+Open source gif hosting for nerds.

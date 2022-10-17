@@ -1,3 +1,4 @@
+import { logger } from '@lib/logger';
 import React, { KeyboardEventHandler } from 'react';
 
 interface ITaggedInputProps {
@@ -14,10 +15,9 @@ const TaggedInput: React.FC<ITaggedInputProps> = ({
   const [searchText, setSearchText] = React.useState<string>('');
   const [searchResults, setSearchResults] = React.useState<Array<string>>([]);
   const [tags, setTags] = React.useState<Array<string>>(value);
-  let searchInput: any;
 
   React.useEffect(() => {
-    console.log('TaggedInput', 'callingOnChange', tags);
+    logger.debug('TaggedInput', 'callingOnChange', tags);
     onChange(tags);
   }, [tags, onChange]);
   const removeTag = (tag: string) => {

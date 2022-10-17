@@ -1,9 +1,8 @@
-import { PrismaClient } from '@prisma/client';
 import type { GetServerSideProps, NextPage } from 'next';
 import { Gif } from 'models';
 import { GifContainer } from 'components';
-import { getBrowserId } from '@lib/browser';
 import { mapGif } from '@lib/mapping/gif';
+import client from '@lib/prismadb';
 
 interface IHomeProps {
   gifs: Gif[];
@@ -29,9 +28,7 @@ const Home: NextPage<IHomeProps> = ({ gifs }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const prisma = new PrismaClient();
-
-  const results = await prisma.gif.findMany({
+  const results = await client.gif.findMany({
     take: 12,
     include: {
       _count: {

@@ -1,7 +1,8 @@
 import { signIn } from 'next-auth/react';
 import React, { FormEventHandler } from 'react';
 import Router from 'next/router';
-
+import Image from 'next/image';
+import Link from 'next/link';
 const SigninPage = () => {
   const [userInfo, setUserInfo] = React.useState({
     email: 'fergal.moran+frasiergifs@gmail.com',
@@ -22,35 +23,21 @@ const SigninPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center min-h-full py-12 sm:px-6 lg:px-8">
+    <div className="flex flex-col justify-center min-h-full py-1 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        {/* <Image alt="Signin"
-                    height="128"
-                    width="128"
-                    className="w-auto h-16 mx-auto rounded-full"
-                    src={`/img/sign-in.gif`} /> */}
-        <img
-          className="w-auto h-32 mx-auto rounded-full"
-          src={`/img/sign-in.gif`}
-          alt="Workflow"
-        />
-        <h2 className="mt-2 text-3xl font-extrabold text-center text-gray-800">
+        <h2 className="mt-2 text-3xl font-extrabold text-center ">
           Sign in to your account
         </h2>
-        <p className="mt-2 text-sm text-center text-gray-600">
-          Or
-          <a
-            href="/auth/signup"
-            className="font-medium text-indigo-600 hover:text-indigo-500"
-          >
-            {' '}
-            create a new account{' '}
-          </a>
+        <p className="mt-2 text-sm text-center ">
+          Or{' '}
+          <Link href="/auth/signup">
+            <a className="font-medium ">create a new account</a>
+          </Link>
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+      <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="px-4 py-8 shadow sm:rounded-lg sm:px-10">
           <form
             className="space-y-6"
             onSubmit={handleSubmit}
@@ -59,7 +46,7 @@ const SigninPage = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium "
               >
                 {' '}
                 Email address{' '}
@@ -74,7 +61,7 @@ const SigninPage = () => {
                   onChange={({ target }) =>
                     setUserInfo({ ...userInfo, email: target.value })
                   }
-                  className="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="w-full input input-bordered"
                 />
               </div>
             </div>
@@ -82,7 +69,7 @@ const SigninPage = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium "
               >
                 {' '}
                 Password{' '}
@@ -97,7 +84,7 @@ const SigninPage = () => {
                   onChange={({ target }) =>
                     setUserInfo({ ...userInfo, password: target.value })
                   }
-                  className="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="w-full input input-bordered"
                 />
               </div>
             </div>
@@ -108,11 +95,11 @@ const SigninPage = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                  className="w-4 h-4 "
                 />
                 <label
                   htmlFor="remember-me"
-                  className="block ml-2 text-sm text-gray-900"
+                  className="block ml-2 text-sm text-accent"
                 >
                   {' '}
                   Remember me{' '}
@@ -122,7 +109,7 @@ const SigninPage = () => {
               <div className="text-sm">
                 <a
                   href="#"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  className="font-medium text-primary hover:text-primary/50"
                 >
                   {' '}
                   Forgot your password?{' '}
@@ -133,7 +120,7 @@ const SigninPage = () => {
             <div>
               <button
                 type="submit"
-                className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full btn btn-primary"
               >
                 Sign in
               </button>
@@ -141,17 +128,7 @@ const SigninPage = () => {
           </form>
 
           <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 text-gray-500 bg-white">
-                  {' '}
-                  Or continue with{' '}
-                </span>
-              </div>
-            </div>
+            <div className="divider">or continue with</div>
 
             <div className="grid grid-cols-3 gap-3 mt-6">
               <div>

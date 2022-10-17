@@ -3,8 +3,11 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import prisma from '@lib/prismadb';
 import { confirmPassword, hashPassword } from '@lib/crypt';
-import { has, omit } from 'lodash';
-
+import { omit } from 'lodash';
+type Credentials = {
+  email: string;
+  password: string;
+};
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: {
@@ -22,7 +25,10 @@ export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       type: 'credentials',
-      credentials: {},
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
+      },
       authorize: async (credentials, request) => {
         if (!credentials) {
           return null;
@@ -35,14 +41,15 @@ export const authOptions: NextAuthOptions = {
             password: true,
           },
         });
-        const hashed = await confirmPassword(
-          credentials.password,
-          user.password
-        );
-        if (hashed) {
-          return omit(user, 'password');
+        if (user && user.password) {
+          const hashed = await confirmPassword(
+            credentials.password,
+            user.password
+          );
+          if (hashed) {
+            return omit(user, 'password');
+          }
         }
-
         return null;
       },
     }),

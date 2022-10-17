@@ -1,9 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
-import { getBrowserId } from '@lib/browser';
-import qs from 'querystring';
 import { mapGif } from '@lib/mapping/gif';
+import client from '@lib/prismadb';
 
 export default async function handler(
   req: NextApiRequest,
@@ -27,9 +25,8 @@ const _processDownvote = async (
   gifId: string,
   browserId: string
 ) => {
-  const prisma = new PrismaClient();
   //check for existing downvote
-  const exists = await prisma.downVotes.count({
+  const exists = await client.downVotes.count({
     where: {
       gifId: gifId,
       browserId: browserId,
@@ -44,7 +41,7 @@ const _processDownvote = async (
 
   //delete any upvotes
   try {
-    await prisma.upVotes.delete({
+    await client.upVotes.delete({
       where: {
         browserId_gifId: {
           gifId: gifId,
@@ -53,13 +50,13 @@ const _processDownvote = async (
       },
     });
   } catch {}
-  const result = await prisma.downVotes.create({
+  const result = await client.downVotes.create({
     data: {
       browserId: browserId as string,
       gifId: gifId as string,
     },
   });
-  const response = await prisma.gif.findUnique({
+  const response = await client.gif.findUnique({
     where: {
       id: gifId,
     },
@@ -82,9 +79,8 @@ const _processUpvote = async (
   gifId: string,
   browserId: string
 ) => {
-  const prisma = new PrismaClient();
   //check for existing upvote
-  const exists = await prisma.upVotes.count({
+  const exists = await client.upVotes.count({
     where: {
       gifId: gifId,
       browserId: browserId,
@@ -99,7 +95,7 @@ const _processUpvote = async (
 
   //delete any downvotes
   try {
-    await prisma.downVotes.delete({
+    await client.downVotes.delete({
       where: {
         browserId_gifId: {
           gifId: gifId,
@@ -109,14 +105,14 @@ const _processUpvote = async (
     });
   } catch {}
 
-  const result = await prisma.upVotes.create({
+  const result = await client.upVotes.create({
     data: {
       browserId: browserId as string,
       gifId: gifId as string,
     },
   });
 
-  const response = await prisma.gif.findUnique({
+  const response = await client.gif.findUnique({
     where: {
       id: gifId,
     },

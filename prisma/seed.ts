@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { hashPassword } from '../lib/crypt';
+import { hashPassword } from '@/lib/crypt';
 
 const prisma = new PrismaClient();
 type Episode = {

@@ -57,6 +57,18 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+enum SettingType {
+  STRING
+  BOOL
+  NUMBER
+}
+
+model Setting {
+  key   String      @id @db.VarChar
+  value String      @db.VarChar
+  type  SettingType @default(STRING)
+}
+
 model Gif {
   id String @id @default(cuid())
 

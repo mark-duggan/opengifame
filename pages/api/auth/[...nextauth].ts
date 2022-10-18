@@ -1,8 +1,9 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GitHubProvider from 'next-auth/providers/github';
 import prisma from '@lib/prismadb';
-import { confirmPassword, hashPassword } from '@lib/crypt';
+import { confirmPassword } from '@lib/crypt';
 import { omit } from 'lodash';
 type Credentials = {
   email: string;
@@ -23,6 +24,10 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.SECRET_KEY,
   providers: [
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
+    }),
     CredentialsProvider({
       type: 'credentials',
       credentials: {
@@ -54,13 +59,13 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  pages: {
-    signIn: '/auth/signin',
-    signOut: '/auth/signout',
-    error: '/auth/error', // Error code passed in query string as ?error=
-    verifyRequest: '/auth/verify-request', // (used for check email message)
-    newUser: '/auth/new-user', // New users will be directed here on first sign in (leave the property out if not of interest)
-  },
+  // pages: {
+  //   signIn: '/auth/signin',
+  //   signOut: '/auth/signout',
+  //   error: '/auth/error', // Error code passed in query string as ?error=
+  //   verifyRequest: '/auth/verify-request', // (used for check email message)
+  //   newUser: '/auth/new-user', // New users will be directed here on first sign in (leave the property out if not of interest)
+  // },
 };
 
 export default NextAuth(authOptions);

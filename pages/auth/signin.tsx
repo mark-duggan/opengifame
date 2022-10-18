@@ -3,6 +3,8 @@ import React, { FormEventHandler } from 'react';
 import Router from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
+import { logger } from '@lib/logger';
+import { debug } from 'console';
 const SigninPage = () => {
   const [userInfo, setUserInfo] = React.useState({
     email: 'fergal.moran+frasiergifs@gmail.com',
@@ -22,6 +24,11 @@ const SigninPage = () => {
     console.log('signin', 'handleSubmit', res);
   };
 
+  const handleProviderAuth = async (provider: string) => {
+    const res = await signIn(provider);
+    debugger;
+    logger.debug(res);
+  };
   return (
     <div className="flex flex-col justify-center min-h-full py-1 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -29,7 +36,7 @@ const SigninPage = () => {
           Sign in to your account
         </h2>
         <p className="mt-2 text-sm text-center ">
-          Or{' '}
+          Or
           <Link href="/auth/signup">
             <a className="font-medium ">create a new account</a>
           </Link>
@@ -48,8 +55,7 @@ const SigninPage = () => {
                 htmlFor="email"
                 className="block text-sm font-medium "
               >
-                {' '}
-                Email address{' '}
+                Email address
               </label>
               <div className="mt-1">
                 <input
@@ -71,8 +77,7 @@ const SigninPage = () => {
                 htmlFor="password"
                 className="block text-sm font-medium "
               >
-                {' '}
-                Password{' '}
+                Password
               </label>
               <div className="mt-1">
                 <input
@@ -101,8 +106,7 @@ const SigninPage = () => {
                   htmlFor="remember-me"
                   className="block ml-2 text-sm text-accent"
                 >
-                  {' '}
-                  Remember me{' '}
+                  Remember me
                 </label>
               </div>
 
@@ -111,8 +115,7 @@ const SigninPage = () => {
                   href="#"
                   className="font-medium text-primary hover:text-primary/50"
                 >
-                  {' '}
-                  Forgot your password?{' '}
+                  Forgot your password?
                 </a>
               </div>
             </div>
@@ -132,9 +135,9 @@ const SigninPage = () => {
 
             <div className="grid grid-cols-3 gap-3 mt-6">
               <div>
-                <a
-                  href="#"
-                  className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
+                <button
+                  onClick={() => handleProviderAuth('Github')}
+                  className="inline-flex justify-center w-full px-2 py-1 btn btn-outline "
                 >
                   <span className="sr-only">Sign in with Facebook</span>
                   <svg
@@ -149,13 +152,13 @@ const SigninPage = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                </a>
+                </button>
               </div>
 
               <div>
-                <a
-                  href="#"
-                  className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
+                <button
+                  onClick={() => handleProviderAuth('Github')}
+                  className="inline-flex justify-center w-full px-2 py-1 btn btn-outline "
                 >
                   <span className="sr-only">Sign in with Twitter</span>
                   <svg
@@ -166,13 +169,13 @@ const SigninPage = () => {
                   >
                     <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84" />
                   </svg>
-                </a>
+                </button>
               </div>
 
               <div>
-                <a
-                  href="#"
-                  className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
+                <button
+                  onClick={() => handleProviderAuth('Github')}
+                  className="inline-flex justify-center w-full px-2 py-1 btn btn-outline "
                 >
                   <span className="sr-only">Sign in with GitHub</span>
                   <svg
@@ -187,7 +190,7 @@ const SigninPage = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                </a>
+                </button>
               </div>
             </div>
           </div>

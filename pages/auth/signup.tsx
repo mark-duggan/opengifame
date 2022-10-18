@@ -1,6 +1,5 @@
-import { signIn } from 'next-auth/react';
 import React, { FormEventHandler } from 'react';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { logger } from '@lib/logger';
 
 const SignUpPage = () => {

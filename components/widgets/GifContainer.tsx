@@ -5,11 +5,13 @@ import {
   HandThumbDownIcon,
 } from '@heroicons/react/24/outline';
 import { Gif } from 'models';
+import Link from 'next/link';
 
 interface IGifContainerProps {
   gif: Gif;
+  isLink?: boolean;
 }
-const GifContainer: React.FC<IGifContainerProps> = ({ gif }) => {
+const GifContainer: React.FC<IGifContainerProps> = ({ gif, isLink = true }) => {
   const [upVotes, setUpVotes] = React.useState<number>(gif.upVotes);
   const [downVotes, setDownVotes] = React.useState<number>(gif.downVotes);
 
@@ -27,13 +29,27 @@ const GifContainer: React.FC<IGifContainerProps> = ({ gif }) => {
     <>
       <div className="group relative h-[17.5rem] transform overflow-hidden rounded-4xl">
         <div className="absolute inset-0 bg-indigo-50">
-          <Image
-            alt={gif.title}
-            layout="fill"
-            objectFit="cover"
-            className="absolute inset-0 transition duration-300 group-hover:scale-110"
-            src={gif.fileName}
-          />
+          {isLink ? (
+            <Link href={`gifs/${gif.id}`}>
+              <a title={gif.title}>
+                <Image
+                  alt={gif.title}
+                  layout="fill"
+                  objectFit="fill"
+                  className="absolute inset-0 transition duration-300 group-hover:scale-110"
+                  src={gif.fileName}
+                />
+              </a>
+            </Link>
+          ) : (
+            <Image
+              alt={gif.title}
+              layout="fill"
+              objectFit="fill"
+              className="absolute inset-0 transition duration-300 group-hover:scale-110"
+              src={gif.fileName}
+            />
+          )}
         </div>
       </div>
       <div className="flex flex-row p-2">

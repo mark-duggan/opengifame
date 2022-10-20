@@ -1,7 +1,7 @@
 import { logger } from '@lib/logger';
-import React from 'react';
-import { UserCircleIcon } from '@heroicons/react/24/solid';
-import { signOut } from 'next-auth/react';
+import React, { Fragment } from 'react';
+import { Menu, Transition } from '@headlessui/react';
+import { signIn, signOut } from 'next-auth/react';
 
 interface IUserNavDropdownProps {
   session: any;
@@ -12,30 +12,68 @@ const UserNavDropdown: React.FC<IUserNavDropdownProps> = ({ session }) => {
   }, [session]);
 
   return (
-    <div className="dropdown dropdown-end">
-      <label
-        tabIndex={0}
-        className="btn btn-ghost btn-circle avatar"
+    <div className="flex items-center">
+      <Menu
+        as="div"
+        className="relative flex-shrink-0 ml-4"
       >
-        <div className="w-10 rounded-full">
-          {session?.user?.image ? (
-            <img src={session?.user?.image} />
-          ) : (
-            <UserCircleIcon />
-          )}
+        <div>
+          <Menu.Button className="flex text-sm text-white bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+            <span className="sr-only">Open user menu</span>
+            <img
+              className="w-8 h-8 rounded-full"
+              src={session?.user?.image as string}
+              alt="Profile image"
+            />
+          </Menu.Button>
         </div>
-      </label>
-      <ul
-        tabIndex={0}
-        className="p-2 mt-3 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
-      >
-        <li>
-          <a>Profile</a>
-        </li>
-        <li>
-          <button onClick={() => signOut()}>Logout</button>
-        </li>
-      </ul>
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
+          <Menu.Items className="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  onClick={() => signOut()}
+                  className="block px-4 py-2 text-sm text-gray-700"
+                >
+                  Logout
+                </button>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700"
+                >
+                  Settings
+                </a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={
+                    active
+                      ? 'bg-gray-100 block px-4 py-2 text-sm text-gray-700'
+                      : 'block px-4 py-2 text-sm text-gray-700'
+                  }
+                >
+                  Sign out
+                </a>
+              )}
+            </Menu.Item>
+          </Menu.Items>
+        </Transition>
+      </Menu>
     </div>
   );
 };

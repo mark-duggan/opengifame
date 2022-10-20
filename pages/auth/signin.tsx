@@ -136,7 +136,7 @@ const SigninPage = () => {
             <div className="grid grid-cols-3 gap-3 mt-6">
               <div>
                 <button
-                  onClick={() => handleProviderAuth('Github')}
+                  onClick={() => handleProviderAuth('Facebook')}
                   className="inline-flex justify-center w-full px-2 py-1 btn btn-outline "
                 >
                   <span className="sr-only">Sign in with Facebook</span>
@@ -157,10 +157,10 @@ const SigninPage = () => {
 
               <div>
                 <button
-                  onClick={() => handleProviderAuth('Github')}
+                  onClick={() => handleProviderAuth('Google')}
                   className="inline-flex justify-center w-full px-2 py-1 btn btn-outline "
                 >
-                  <span className="sr-only">Sign in with Twitter</span>
+                  <span className="sr-only">Sign in with Google</span>
                   <svg
                     className="w-5 h-5"
                     fill="currentColor"

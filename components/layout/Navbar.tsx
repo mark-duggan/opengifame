@@ -6,7 +6,8 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import LoginButton from '@components/widgets/login/LoginButton';
-import { HiBars3, HiMagnifyingGlass, HiXMark } from 'react-icons/hi2';
+// import { HiBars3, HiMagnifyingGlass, HiXMark } from 'react-icons/hi2';
+import { FaBars, FaSearch, FaTimes } from 'react-icons/fa';
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -85,7 +86,7 @@ const Navbar = () => {
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <HiMagnifyingGlass
+                      <FaSearch
                         className="w-5 h-5 text-gray-400"
                         aria-hidden="true"
                       />
@@ -105,12 +106,12 @@ const Navbar = () => {
                 <Disclosure.Button className="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
-                    <HiXMark
+                    <FaTimes
                       className="block w-6 h-6"
                       aria-hidden="true"
                     />
                   ) : (
-                    <HiBars3
+                    <FaBars
                       className="block w-6 h-6"
                       aria-hidden="true"
                     />

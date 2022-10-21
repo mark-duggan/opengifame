@@ -1,6 +1,6 @@
 import React from 'react';
 import { signIn } from 'next-auth/react';
-import { HiArrowLeft, HiArrowRight } from 'react-icons/hi2';
+import { RiLoginCircleLine } from 'react-icons/ri';
 import { UserNavDropdown } from '@components';
 
 interface ILoginButtonProps {
@@ -15,7 +15,7 @@ const LoginButton: React.FC<ILoginButtonProps> = ({ session }) => {
       onClick={() => signIn()}
       className="normal-case btn btn-ghost drawer-button"
     >
-      <HiArrowRight className="inline-block w-6 h-6 fill-current md:mr-2" />
+      <RiLoginCircleLine className="inline-block w-6 h-6 fill-current md:mr-1" />
       Login
     </button>
   );

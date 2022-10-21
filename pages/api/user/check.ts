@@ -17,7 +17,10 @@ export default async function handle(
         password: true,
       },
     });
-    if (user && (await confirmPassword(user.password, req.body.password))) {
+    if (
+      user?.password &&
+      (await confirmPassword(user.password, req.body.password))
+    ) {
       logger.debug('password correct');
       res.json(omit(user, 'password'));
     } else {

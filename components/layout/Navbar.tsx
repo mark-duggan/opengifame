@@ -1,17 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { Fragment } from 'react';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import LoginButton from '@components/widgets/login/LoginButton';
+import { HiBars3, HiMagnifyingGlass, HiXMark } from 'react-icons/hi2';
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
 const Navbar = () => {
   const { data: session } = useSession();
   const router = useRouter();
@@ -19,7 +15,7 @@ const Navbar = () => {
   return (
     <Disclosure
       as="nav"
-      className="bg-gray-800"
+      className="bg-base-300"
     >
       {({ open }) => (
         <>
@@ -89,7 +85,7 @@ const Navbar = () => {
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <MagnifyingGlassIcon
+                      <HiMagnifyingGlass
                         className="w-5 h-5 text-gray-400"
                         aria-hidden="true"
                       />
@@ -97,7 +93,7 @@ const Navbar = () => {
                     <input
                       id="search"
                       name="search"
-                      className="block w-full py-2 pl-10 pr-3 leading-5 text-gray-300 placeholder-gray-400 bg-gray-700 border border-transparent rounded-md focus:outline-none focus:bg-white focus:border-white focus:ring-white focus:text-gray-900 sm:text-sm"
+                      className="block w-full py-2 pl-10 pr-3 leading-5 text-gray-300 placeholder-gray-400 border border-transparent rounded-md bg-base-100 focus:outline-none focus:bg-white focus:border-white focus:ring-white focus:text-gray-900 sm:text-sm"
                       placeholder="Search"
                       type="search"
                     />
@@ -109,12 +105,12 @@ const Navbar = () => {
                 <Disclosure.Button className="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
-                    <XMarkIcon
+                    <HiXMark
                       className="block w-6 h-6"
                       aria-hidden="true"
                     />
                   ) : (
-                    <Bars3Icon
+                    <HiBars3
                       className="block w-6 h-6"
                       aria-hidden="true"
                     />

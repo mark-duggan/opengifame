@@ -1,7 +1,7 @@
 import { logger } from '@lib/logger';
 import React, { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
-import { signIn, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 
 interface IUserNavDropdownProps {
   session: any;
@@ -36,7 +36,7 @@ const UserNavDropdown: React.FC<IUserNavDropdownProps> = ({ session }) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 z-50 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <Menu.Item>
               {({ active }) => (
                 <button
@@ -45,30 +45,6 @@ const UserNavDropdown: React.FC<IUserNavDropdownProps> = ({ session }) => {
                 >
                   Logout
                 </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700"
-                >
-                  Settings
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={
-                    active
-                      ? 'bg-gray-100 block px-4 py-2 text-sm text-gray-700'
-                      : 'block px-4 py-2 text-sm text-gray-700'
-                  }
-                >
-                  Sign out
-                </a>
               )}
             </Menu.Item>
           </Menu.Items>

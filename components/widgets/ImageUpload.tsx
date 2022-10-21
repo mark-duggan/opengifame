@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { HiOutlineXMark } from 'react-icons/hi2';
 interface IImageUploadProps {
   value: string | undefined;
   onChange: (image: File) => void;
@@ -29,8 +29,7 @@ const ImageUpload: React.FC<IImageUploadProps> = ({ onChange }) => {
               className="absolute top-0 right-0 p-2 m-2 rounded-full "
               onClick={() => setImage('')}
             >
-              {''}
-              <XMarkIcon className="w-5 h-5" />
+              <HiOutlineXMark className="w-5 h-5" />
             </button>
           </div>
         </div>

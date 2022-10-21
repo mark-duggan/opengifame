@@ -1,9 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import {
-  HandThumbUpIcon,
-  HandThumbDownIcon,
-} from '@heroicons/react/24/outline';
+import { TbThumbUp, TbThumbDown } from 'react-icons/tb';
 import { Gif } from 'models';
 import Link from 'next/link';
 
@@ -66,7 +63,7 @@ const GifContainer: React.FC<IGifContainerProps> = ({ gif, isLink = true }) => {
         <div className="flex items-center justify-center space-x-1">
           <div className="flex transition duration-75 ease-in-out delay-150 hover:text-orange-700 hover:cursor-pointer">
             <span onClick={() => _doot(gif.id, true)}>
-              <HandThumbUpIcon className="w-5" />
+              <TbThumbUp className="w-5" />
             </span>
             <span className="text-xs">{upVotes}</span>
           </div>
@@ -75,7 +72,7 @@ const GifContainer: React.FC<IGifContainerProps> = ({ gif, isLink = true }) => {
               onClick={() => _doot(gif.id, false)}
               className="pl-2 "
             >
-              <HandThumbDownIcon className="w-5" />
+              <TbThumbDown className="w-5" />
             </span>
             <span className="text-xs">{downVotes}</span>
           </div>

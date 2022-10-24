@@ -50,13 +50,13 @@ const GifContainer: React.FC<IGifContainerProps> = ({ gif, isLink = true }) => {
         </div>
       </div>
       <div className="flex flex-row p-2">
-        <div className="flex-1 text-base tracking-tight text-slate-500">
+        <div className="flex-1 space-x-2 text-base">
           {gif.searchTerms?.map((t) => (
             <div
               key={t}
-              className="mr-0.5 badge badge-secondary badge-sm badge-outline"
+              className="mr-0.5 badge badge-secondary badge-md badge-outline"
             >
-              {t}
+              {`#${t}`}
             </div>
           ))}
         </div>

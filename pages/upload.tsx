@@ -5,12 +5,19 @@ import prisma from '@lib/prismadb';
 import { ImageUpload, TaggedInput } from '@components';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+import Router from 'next/router';
 
 interface IUploadProps {
   seasons: Season[];
 }
 
 const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
+  const { status } = useSession();
+  React.useEffect(() => {
+    if (status === 'unauthenticated') Router.replace('/auth/signin');
+  }, [status]);
+
   type FormValues = {
     title: string;
     description: string;
@@ -55,7 +62,7 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
       }
     }
   };
-  return (
+  return status === 'authenticated' ? (
     <div className="md:grid md:grid-cols-3 md:gap-6">
       <div className="md:col-span-1">
         <div className="px-4 sm:px-0">
@@ -191,6 +198,8 @@ const UploadPage: NextPage<IUploadProps> = ({ seasons }) => {
         </form>
       </div>
     </div>
+  ) : (
+    <div>Loading....</div>
   );
 };
 

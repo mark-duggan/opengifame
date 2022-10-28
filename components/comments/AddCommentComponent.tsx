@@ -72,16 +72,13 @@ const AddCommentComponent = () => {
       <div className="flex-shrink-0">
         <img
           className="inline-block w-10 h-10 rounded-full"
-          src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          alt=""
+          src={session?.user?.image as string}
+          alt="User"
         />
       </div>
       <div className="flex-1 min-w-0">
-        <form
-          action="#"
-          className="relative"
-        >
-          <div className="overflow-hidden border border-gray-300 rounded-lg shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+        <form action="#">
+          <div className="border-b border-gray-200 focus-within:border-indigo-600">
             <label
               htmlFor="comment"
               className="sr-only"
@@ -92,38 +89,26 @@ const AddCommentComponent = () => {
               rows={3}
               name="comment"
               id="comment"
-              className="block w-full py-3 border-0 resize-none focus:ring-0 sm:text-sm"
+              className="block w-full p-0 pb-2 border-0 border-b border-transparent resize-none focus:ring-0 focus:border-indigo-600 sm:text-sm"
               placeholder="Add your comment..."
               defaultValue={''}
             />
-
-            {/* Spacer element to match the height of the toolbar */}
-            <div
-              className="py-2"
-              aria-hidden="true"
-            >
-              {/* Matches height of button in toolbar (1px border + 36px content height) */}
-              <div className="py-px">
-                <div className="h-9" />
-              </div>
-            </div>
           </div>
-
-          <div className="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
+          <div className="flex justify-between pt-2">
             <div className="flex items-center space-x-5">
-              <div className="flex items-center">
+              <div className="flow-root">
                 <button
                   type="button"
-                  className="-m-2.5 w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-500"
+                  className="inline-flex items-center justify-center w-10 h-10 -m-2 text-gray-400 rounded-full hover:text-gray-500"
                 >
                   <HiPaperClip
-                    className="w-5 h-5"
+                    className="w-6 h-6"
                     aria-hidden="true"
                   />
                   <span className="sr-only">Attach a file</span>
                 </button>
               </div>
-              <div className="flex items-center">
+              <div className="flow-root">
                 <Listbox
                   value={selected}
                   onChange={setSelected}
@@ -134,12 +119,12 @@ const AddCommentComponent = () => {
                         Your mood
                       </Listbox.Label>
                       <div className="relative">
-                        <Listbox.Button className="relative -m-2.5 w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-500">
+                        <Listbox.Button className="relative inline-flex items-center justify-center w-10 h-10 -m-2 text-gray-400 rounded-full hover:text-gray-500">
                           <span className="flex items-center justify-center">
                             {selected.value === null ? (
                               <span>
-                                <HiEmojiHappy
-                                  className="flex-shrink-0 w-5 h-5"
+                                <HiOutlineEmojiHappy
+                                  className="flex-shrink-0 w-6 h-6"
                                   aria-hidden="true"
                                 />
                                 <span className="sr-only">Add your mood</span>
@@ -170,7 +155,7 @@ const AddCommentComponent = () => {
                           leaveFrom="opacity-100"
                           leaveTo="opacity-0"
                         >
-                          <Listbox.Options className="absolute z-10 py-3 mt-1 -ml-6 text-base bg-white rounded-lg shadow w-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:ml-auto sm:w-64 sm:text-sm">
+                          <Listbox.Options className="absolute z-10 py-3 -ml-6 text-base bg-white rounded-lg shadow w-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:ml-auto sm:w-64 sm:text-sm">
                             {moods.map((mood) => (
                               <Listbox.Option
                                 key={mood.value}

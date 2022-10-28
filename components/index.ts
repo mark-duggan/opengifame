@@ -6,6 +6,7 @@ import ImageUpload from './widgets/ImageUpload';
 import SharingComponent from './sharing/SharingComponent';
 import AddCommentComponent from './comments/AddCommentComponent';
 import UserNavDropdown from './widgets/UserNavDropdown';
+import CopyTextInput from './widgets/CopyTextInput';
 
 export {
   GifContainer,
@@ -15,5 +16,6 @@ export {
   ImageUpload,
   SharingComponent,
   AddCommentComponent,
-  UserNavDropdown
+  UserNavDropdown,
+  CopyTextInput,
 };

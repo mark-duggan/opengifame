@@ -8,7 +8,7 @@ import { GetServerSideProps } from 'next';
 import client from '@lib/prismadb';
 import { Gif } from 'models';
 import { mapGif } from '@lib/mapping/gif';
-import SharingEmbed from '@components/sharing/SharingEmbed';
+import SharingEmbedComponent from '@components/sharing/SharingEmbed';
 interface IGifPageProps {
   gif: Gif;
 }
@@ -28,9 +28,9 @@ const GifPage: React.FC<IGifPageProps> = ({ gif }) => {
                 {gif.description}
               </p>
               <SharingComponent gif={gif} />
-              <div className="mt-5">
+              {/* <div className="mt-5">
                 <AddCommentComponent />
-              </div>
+              </div> */}
             </div>
             <div className="relative mt-12 sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
               <div className="relative w-full mx-auto rounded-lg shadow-lg lg:max-w-md">

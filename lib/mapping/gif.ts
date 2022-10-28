@@ -14,5 +14,7 @@ export const mapGif = (
     upVotes: gif._count.upVotes,
     downVotes: gif._count.downVotes,
     hasVoted: false,
+    fixedEmbedCode: 'Tongue Punch',
+    responsiveEmbedCode: 'My Fartbox',
   };
 };

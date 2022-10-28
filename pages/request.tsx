@@ -1,7 +1,14 @@
 import React from 'react';
+import { useSession } from 'next-auth/react';
+import Router from 'next/router';
 
 const RequestPage = () => {
-  return (
+  const { status } = useSession();
+  React.useEffect(() => {
+    if (status === 'unauthenticated') Router.replace('/auth/signin');
+  }, [status]);
+
+  return status === 'authenticated' ? (
     <div className="relative px-4 sm:px-6 lg:px-8">
       <div className="mx-auto text-lg max-w-prose">
         <h1>
@@ -19,6 +26,8 @@ const RequestPage = () => {
         </p>
       </div>
     </div>
+  ) : (
+    <div>Loading....</div>
   );
 };
 

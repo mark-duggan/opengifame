@@ -96,7 +96,7 @@ const SigninPage = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="w-4 h-4 "
+                  className="w-4 h-4"
                 />
                 <label
                   htmlFor="remember-me"
@@ -109,7 +109,7 @@ const SigninPage = () => {
               <div className="text-sm">
                 <a
                   href="#"
-                  className="font-medium text-primary hover:text-primary/50"
+                  className="font-medium text-info hover:text-primary/50"
                 >
                   Forgot your password?
                 </a>

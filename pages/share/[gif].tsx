@@ -5,12 +5,21 @@ import { Gif } from '@models';
 import { GetServerSideProps } from 'next';
 import { mapGif } from '@lib/mapping/gif';
 import client from '@lib/prismadb';
+import { GifContainer } from '@components';
 
 interface IShareGifPageProps {
   gif: Gif;
 }
 const ShareGifPage: NextPageWithLayout<IShareGifPageProps> = ({ gif }) => {
-  return <div>ShareGifPage</div>;
+  return (
+    <div className="p-2 w-96">
+      <GifContainer
+        gif={gif}
+        isLink={true}
+        showDetails={false}
+      />
+    </div>
+  );
 };
 
 ShareGifPage.getLayout = (page: React.ReactElement) => {
@@ -23,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   const gif = await client.gif.findUnique({
     where: {
-      id: params?.gif as string,
+      slug: params?.gif as string,
     },
     include: {
       _count: {
@@ -41,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
   return {
     props: {
-      gif,
+      gif: mapGif(gif),
     },
   };
 };

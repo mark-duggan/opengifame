@@ -15,7 +15,7 @@ export const mapGif = (
     upVotes: gif._count.upVotes,
     downVotes: gif._count.downVotes,
     hasVoted: false,
-    fixedEmbedCode: 'Tongue Punch',
-    responsiveEmbedCode: 'My Fartbox',
+    fixedEmbedCode: `<iframe title="${gif.title}" width="800" height="600" frameBorder="0" src="https://dev.fergl.ie:3000/share/${gif.slug}">`,
+    responsiveEmbedCode: `<iframe title="${gif.title}" width="800" height="600" frameBorder="0" src="https://dev.fergl.ie:3000/share/${gif.slug}">`,
   };
 };

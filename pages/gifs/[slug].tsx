@@ -54,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   const gif = await client.gif.findUnique({
     where: {
-      id: params?.id as string,
+      slug: params?.slug as string,
     },
     include: {
       _count: {

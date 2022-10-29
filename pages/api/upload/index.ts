@@ -1,15 +1,17 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import formidable, { File } from 'formidable';
-import { promises as fs } from 'fs';
+import {NextApiRequest, NextApiResponse} from 'next';
+import formidable, {File} from 'formidable';
+import {promises as fs} from 'fs';
 import mime from 'mime-types';
-import { logger } from '@lib/logger';
-import { getSession } from 'next-auth/react';
+import {logger} from '@lib/logger';
+import {getSession} from 'next-auth/react';
+import {titleToSlug} from '@lib/slug';
+
 type ProcessedFiles = Array<[string, File]>;
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getSession({ req });
+  const session = await getSession({req});
   if (!session?.user?.id) {
-    return res.status(401).json({ status: 'denied', message: 'Access denied' });
+    return res.status(401).json({status: 'denied', message: 'Access denied'});
   }
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -32,7 +34,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
         form.on('end', () => resolve(files));
         form.on('error', (err) => reject(err));
-        form.parse(req, () => {});
+        form.parse(req, () => {
+        });
       }
     ).catch((e) => {
       logger.error('index', 'Error parsing form', e);
@@ -48,6 +51,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           title: formData.title,
           description: formData.description,
           searchTerms: formData.terms.split('|'),
+          slug: await titleToSlug(formData.title),
         },
       });
       if (!newGif?.id) {

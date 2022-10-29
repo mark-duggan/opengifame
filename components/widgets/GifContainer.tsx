@@ -27,7 +27,7 @@ const GifContainer: React.FC<IGifContainerProps> = ({ gif, isLink = true }) => {
       <div className="group relative h-[17.5rem] transform overflow-hidden rounded-4xl">
         <div className="absolute inset-0 bg-indigo-50">
           {isLink ? (
-            <Link href={`gifs/${gif.id}`}>
+            <Link href={`gifs/${gif.slug}`}>
               <a title={gif.title}>
                 <Image
                   alt={gif.title}
@@ -54,7 +54,7 @@ const GifContainer: React.FC<IGifContainerProps> = ({ gif, isLink = true }) => {
           {gif.searchTerms?.map((t) => (
             <div
               key={t}
-              className="mr-0.5 badge badge-secondary badge-md badge-outline"
+              className="mr-0.5 badge badge-info  badge-md badge-outline"
             >
               {`#${t}`}
             </div>

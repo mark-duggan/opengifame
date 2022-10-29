@@ -1,5 +1,6 @@
 export default interface Gif {
   id: string;
+  slug: string;
   title: string;
   description: string | null;
   fileName: string;

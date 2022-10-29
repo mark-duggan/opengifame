@@ -7,7 +7,6 @@ interface IPageLayoutProps {
 const PageLayout: React.FC<IPageLayoutProps> = ({ children }) => {
   return (
     <div
-      data-theme="business"
       className="h-full min-h-full"
     >
       <Navbar />

@@ -7,11 +7,29 @@ import { PageLayout } from 'components/layout';
 import { generateBrowserId } from '@lib/browser';
 import Cookies from 'js-cookie';
 import Head from 'next/head';
+import { NextPageWithLayout } from 'types/page-with-layout';
+import { ThemeProvider } from 'next-themes';
+
+type AppPropsWithLayout<T> = AppProps<T> & {
+  Component: NextPageWithLayout;
+};
 
 const MyApp = ({
   Component,
   pageProps: { session, ...pageProps },
-}: AppProps<{ session: Session }>) => {
+}: AppPropsWithLayout<{ session: Session }>) => {
+  const getLayout =
+    Component.getLayout ??
+    ((page: React.ReactElement) => (
+      <ThemeProvider
+        defaultTheme="luxury"
+        storageKey="__theme"
+      >
+        <PageLayout>
+          <Component {...pageProps} />
+        </PageLayout>
+      </ThemeProvider>
+    ));
   React.useEffect(() => {
     const checkBrowserId = async () => {
       const storedId = localStorage.getItem('__effp');
@@ -64,9 +82,7 @@ const MyApp = ({
           content="#ffffff"
         />
       </Head>
-      <PageLayout>
-        <Component {...pageProps} />
-      </PageLayout>
+      {getLayout(<Component {...pageProps} />)}
     </SessionProvider>
   );
 };

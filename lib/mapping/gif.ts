@@ -6,6 +6,7 @@ export const mapGif = (
 ): modelGif => {
   return {
     id: gif.id,
+    slug: gif.slug,
     title: gif.title,
     description: gif.description,
     fileName: `/uploads/${gif.id}.gif`,

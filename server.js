@@ -8,8 +8,8 @@ const app = next({ dev, dir: __dirname });
 const handle = app.getRequestHandler();
 
 const options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/fergl.ie/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/fergl.ie/fullchain.pem'),
+  key: fs.readFileSync(process.env.TLS_KEY),
+  cert: fs.readFileSync(process.env.TLS_CERT),
 };
 
 app.prepare().then(() => {
@@ -17,6 +17,6 @@ app.prepare().then(() => {
     .createServer(options, (req, res) => handle(req, res))
     .listen(port, (err) => {
       if (err) throw err;
-      console.log(`> Ready on localhost:${port}`);
+      console.log(`> Ready on https://localhost:${port}`);
     });
 });

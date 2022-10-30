@@ -30,8 +30,9 @@ const Navbar = () => {
                         <Image
                           width={32}
                           height={32}
-                          src="/img/icon.svg"
-                          alt="Workflow"
+                          src="/img/header-logo.gif"
+                          alt="Logo"
+                          className="rounded-full"
                         />
                       </a>
                     </Link>
@@ -42,8 +43,9 @@ const Navbar = () => {
                         <Image
                           width={32}
                           height={32}
-                          src="/img/icon.svg"
-                          alt="Workflow"
+                          src="/img/header-logo.gif"
+                          alt="Logo"
+                          className="rounded-full"
                         />
                       </a>
                     </Link>

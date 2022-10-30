@@ -8,7 +8,7 @@ import { debug } from 'console';
 import { SocialLogin } from '@components';
 const SigninPage = () => {
   const [userInfo, setUserInfo] = React.useState({
-    email: 'fergal.moran+frasiergifs@gmail.com',
+    email: 'someone@example.com',
     password: 'secret',
   });
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {

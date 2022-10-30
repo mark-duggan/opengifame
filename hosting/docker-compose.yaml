@@ -18,8 +18,9 @@ services:
       - ADMIN_USER=${ADMIN_USER:-fergal.moran+live@gmail.com}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-secret}
       - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:secret@db:5432/opengifame?schema=public}
-      - SECRET_KEY==${SECRET_KEY:-PLEASEDONTUSETHIS}
-      - NEXTAUTH_URL==${NEXTAUTH_URL:-https://dev.fergl.ie:3000}
+      - SECRET_KEY=${SECRET_KEY:-PLEASEDONTUSETHIS}
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-https://dev.fergl.ie:3000}
+      - NODE_ENV=${NODE_ENV:-production}
   db:
     image: postgres:13
     volumes:

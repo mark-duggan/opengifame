@@ -33,8 +33,11 @@ const SigninPage = () => {
         </h2>
         <p className="mt-2 text-sm text-center ">
           Or{' '}
-          <Link href="/auth/signup">
-            <a className="font-medium ">create a new account</a>
+          <Link
+            href="/auth/signup"
+            className="font-medium "
+          >
+            create a new account
           </Link>
         </p>
       </div>

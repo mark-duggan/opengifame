@@ -1,4 +1,3 @@
-
-async function main() {
+export async function main() {
   console.log('slugify');
 }

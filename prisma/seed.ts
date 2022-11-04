@@ -86,7 +86,7 @@ async function main() {
   const gifs = await prisma.gif.findMany();
   for (const gif of gifs) {
     if (!gif.slug) {
-      gif.slug = titleToSlug(gif.title);
+      gif.slug = await titleToSlug(gif.title);
     }
   }
 }

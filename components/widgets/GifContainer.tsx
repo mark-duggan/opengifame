@@ -32,16 +32,17 @@ const GifContainer: React.FC<IGifContainerProps> = ({
       <div className="group relative h-[17.5rem] transform overflow-hidden rounded-4xl">
         <div className="absolute inset-0">
           {isLink ? (
-            <Link href={`gifs/${gif.slug}`}>
-              <a title={gif.title}>
-                <Image
-                  alt={gif.title}
-                  layout="fill"
-                  objectFit="fill"
-                  className="absolute inset-0 transition duration-300 group-hover:scale-110"
-                  src={gif.fileName}
-                />
-              </a>
+            <Link
+              href={`gifs/${gif.slug}`}
+              title={gif.title}
+            >
+              <Image
+                alt={gif.title}
+                layout="fill"
+                objectFit="fill"
+                className="absolute inset-0 transition duration-300 group-hover:scale-110"
+                src={gif.fileName}
+              />
             </Link>
           ) : (
             <Image

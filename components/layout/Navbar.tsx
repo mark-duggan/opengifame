@@ -26,52 +26,46 @@ const Navbar = () => {
                 <div className="flex-shrink-0">
                   <div className="block w-auto h-8 lg:hidden">
                     <Link href="/">
-                      <a>
-                        <Image
-                          width={32}
-                          height={32}
-                          src="/img/icon.svg"
-                          alt="Workflow"
-                        />
-                      </a>
+                      <Image
+                        width={32}
+                        height={32}
+                        src="/img/icon.svg"
+                        alt="Workflow"
+                      />
                     </Link>
                   </div>
                   <div className="hidden w-auto h-8 lg:block">
                     <Link href="/">
-                      <a>
-                        <Image
-                          width={32}
-                          height={32}
-                          src="/img/icon.svg"
-                          alt="Workflow"
-                        />
-                      </a>
+                      <Image
+                        width={32}
+                        height={32}
+                        src="/img/icon.svg"
+                        alt="Workflow"
+                      />
                     </Link>
                   </div>
                 </div>
                 <div className="hidden lg:block lg:ml-6">
                   <div className="flex space-x-4">
-                    <Link href="/upload">
-                      <a
-                        className={
-                          currentRoute === '/upload'
-                            ? 'px-3 py-2 text-sm font-medium  bg-accent rounded-md'
-                            : 'px-3 py-2 text-sm font-medium  rounded-md hover:bg-accent/20'
-                        }
-                      >
-                        Upload
-                      </a>
+                    <Link
+                      href="/upload"
+                      className={
+                        currentRoute === '/upload'
+                          ? 'px-3 py-2 text-sm font-medium  bg-accent rounded-md'
+                          : 'px-3 py-2 text-sm font-medium  rounded-md hover:bg-accent/20'
+                      }
+                    >
+                      Upload
                     </Link>
-                    <Link href="/request">
-                      <a
-                        className={
-                          currentRoute === '/request'
-                            ? 'px-3 py-2 text-sm font-medium  bg-accent rounded-md'
-                            : 'px-3 py-2 text-sm font-medium  rounded-md hover:bg-accent/20 '
-                        }
-                      >
-                        Request
-                      </a>
+                    <Link
+                      href="/request"
+                      className={
+                        currentRoute === '/request'
+                          ? 'px-3 py-2 text-sm font-medium  bg-accent rounded-md'
+                          : 'px-3 py-2 text-sm font-medium  rounded-md hover:bg-accent/20 '
+                      }
+                    >
+                      Request
                     </Link>
                   </div>
                 </div>

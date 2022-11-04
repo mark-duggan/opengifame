@@ -6,7 +6,9 @@ interface IPageLayoutProps {
 }
 const PageLayout: React.FC<IPageLayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-full">
+    <div
+      className="h-full min-h-full"
+    >
       <Navbar />
       <div className="px-10 py-10">
         <main>{children}</main>

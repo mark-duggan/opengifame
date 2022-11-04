@@ -4,17 +4,10 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
   ],
-  theme: {
-    extend: {
-      colors: {
-        tofu: '#e8e3d9',
-        putty: '#d6ceb1',
-        oatmeal: '#ccc5b5',
-        almond: '#ab784e',
-        harvestwheat: '#dec5a5',
-        buff: '#edc594',
-      },
-    },
-  },
+  darkMode: 'class',
+  important: true,
   plugins: [require('@tailwindcss/forms'), require('daisyui')],
+  daisyui: {
+    themes: true,
+  },
 };

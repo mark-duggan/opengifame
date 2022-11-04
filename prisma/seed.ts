@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import { hashPassword } from '@/lib/crypt';
+import bcrypt from 'bcrypt';
+import { titleToSlug } from '@lib/slug';
 
 const prisma = new PrismaClient();
 type Episode = {
@@ -26,8 +27,9 @@ const tags = [
 async function main() {
   //add admin user
   const adminUser = process.env.ADMIN_USER as string;
-  const adminPassword = await hashPassword(
-    process.env.ADMIN_PASSWORD as string
+  const adminPassword = await bcrypt.hash(
+    process.env.ADMIN_PASSWORD as string,
+    0
   );
   console.log('seed', 'creating user', adminUser);
 
@@ -80,6 +82,12 @@ async function main() {
       },
     });
     console.log('seed', episode);
+  }
+  const gifs = await prisma.gif.findMany();
+  for (const gif of gifs) {
+    if (!gif.slug) {
+      gif.slug = titleToSlug(gif.title);
+    }
   }
 }
 

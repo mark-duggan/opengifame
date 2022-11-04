@@ -75,8 +75,8 @@ model Setting {
 }
 
 model Gif {
-  id String @id @default(cuid())
-
+  id            String      @id @default(cuid())
+  slug          String      @db.VarChar(50)
   title         String      @db.VarChar(100)
   description   String?     @db.VarChar(2000)
   searchTerms   String[]    @db.VarChar(2000)
@@ -89,6 +89,8 @@ model Gif {
   //TODO: remove nullable
   user   User   @relation(fields: [userId], references: [id])
   userId String
+
+  @@unique([slug])
 }
 
 model UpVotes {

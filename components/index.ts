@@ -3,8 +3,11 @@ import LoginButton from './widgets/login/LoginButton';
 import SocialLogin from './widgets/login/SocialLogin';
 import TaggedInput from './widgets/TaggedInput';
 import ImageUpload from './widgets/ImageUpload';
-import SharingComponent from './widgets/SharingComponent';
+import SharingComponent from './sharing/SharingComponent';
+import AddCommentComponent from './comments/AddCommentComponent';
 import UserNavDropdown from './widgets/UserNavDropdown';
+import CopyTextInput from './widgets/CopyTextInput';
+
 export {
   GifContainer,
   LoginButton,
@@ -12,5 +15,7 @@ export {
   TaggedInput,
   ImageUpload,
   SharingComponent,
+  AddCommentComponent,
   UserNavDropdown,
+  CopyTextInput,
 };

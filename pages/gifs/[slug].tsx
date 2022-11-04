@@ -8,7 +8,6 @@ import { GetServerSideProps } from 'next';
 import client from '@lib/prismadb';
 import { Gif } from 'models';
 import { mapGif } from '@lib/mapping/gif';
-import SharingEmbedComponent from '@components/sharing/SharingEmbed';
 interface IGifPageProps {
   gif: Gif;
 }

@@ -46,7 +46,7 @@ export default function RootLayout({
       <body>
         <SessionProvider>
           <Navbar />
-          {children}
+          <div className="m-4">{children}</div>
         </SessionProvider>
       </body>
     </html>

@@ -7,6 +7,7 @@ import SharingComponent from './sharing/SharingComponent';
 import AddCommentComponent from './comments/AddCommentComponent';
 import UserNavDropdown from './widgets/UserNavDropdown';
 import CopyTextInput from './widgets/CopyTextInput';
+import Loading from './widgets/Loading';
 
 export {
   GifContainer,
@@ -18,4 +19,5 @@ export {
   AddCommentComponent,
   UserNavDropdown,
   CopyTextInput,
+  Loading,
 };

@@ -1,7 +1,7 @@
 'use client';
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { useSession } from 'next-auth/react';
 import { Disclosure } from '@headlessui/react';
 import Link from 'next/link';

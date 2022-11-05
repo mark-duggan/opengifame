@@ -1,7 +1,7 @@
 import { signIn } from 'next-auth/react';
 import React, { FormEventHandler } from 'react';
 import Router from 'next/router';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import Link from 'next/link';
 import { logger } from '@lib/logger';
 import { debug } from 'console';

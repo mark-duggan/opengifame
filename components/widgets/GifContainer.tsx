@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { TbThumbUp, TbThumbDown } from 'react-icons/tb';
 import { Gif } from 'models';
 import Link from 'next/link';

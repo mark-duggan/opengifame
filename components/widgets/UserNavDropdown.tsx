@@ -1,3 +1,4 @@
+'use client';
 import { logger } from '@lib/logger';
 import React, { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';

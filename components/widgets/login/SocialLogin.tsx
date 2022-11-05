@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import {
   ClientSafeProvider,
@@ -15,7 +17,7 @@ import {
   FaGoogle,
   FaTwitter,
 } from 'react-icons/fa';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const SocialLogin = () => {
   const router = useRouter();

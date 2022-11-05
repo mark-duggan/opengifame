@@ -1,7 +1,7 @@
 'use client';
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { useSession } from 'next-auth/react';
 import { Disclosure } from '@headlessui/react';
 import Link from 'next/link';
@@ -31,7 +31,10 @@ const Navbar = () => {
                         height={32}
                         src="/img/icon.svg"
                         alt="Workflow"
-                      />
+                        style={{
+                          maxWidth: "100%",
+                          height: "auto"
+                        }} />
                     </Link>
                   </div>
                   <div className="hidden w-auto h-8 lg:block">
@@ -41,7 +44,10 @@ const Navbar = () => {
                         height={32}
                         src="/img/icon.svg"
                         alt="Workflow"
-                      />
+                        style={{
+                          maxWidth: "100%",
+                          height: "auto"
+                        }} />
                     </Link>
                   </div>
                 </div>

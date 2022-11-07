@@ -37,7 +37,7 @@ const SocialLogin = () => {
   const handleProviderAuth = async (provider: string) => {
     logger.debug('signin', 'handleProviderAuth', provider);
     const res = await signIn(provider, {
-      callbackUrl: `https://dev.fergl.ie:3000`,
+      callbackUrl: `${process.env.API_URL}`,
     });
     logger.debug('signin', 'handleProviderAuth_res', res);
     if (res?.ok) {

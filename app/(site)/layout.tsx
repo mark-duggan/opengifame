@@ -1,9 +1,9 @@
 'use client';
 import Navbar from '@components/layout/Navbar';
 import { SessionProvider } from 'next-auth/react';
-import './globals.css';
+import '@styles/globals.css';
 
-export default function RootLayout({
+export default function SiteLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -1,3 +1,4 @@
+'use client';
 import { Transition } from '@headlessui/react';
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';

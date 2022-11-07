@@ -1,12 +1,12 @@
-import { signIn } from 'next-auth/react';
+'use client';
 import React, { FormEventHandler } from 'react';
-import Router from 'next/router';
-import Image from 'next/image';
-import Link from 'next/link';
-import { logger } from '@lib/logger';
-import { debug } from 'console';
 import { SocialLogin } from '@components';
-const SigninPage = () => {
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+
+const SignInPage = () => {
+  const router = useRouter();
   const [userInfo, setUserInfo] = React.useState({
     email: 'fergal.moran+frasiergifs@gmail.com',
     password: 'secret',
@@ -20,11 +20,10 @@ const SigninPage = () => {
       redirect: false,
     });
     if (res?.status === 200) {
-      Router.replace('/');
+      router.replace('/');
     }
     console.log('signin', 'handleSubmit', res);
   };
-
   return (
     <div className="flex flex-col justify-center min-h-full py-1 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -138,4 +137,4 @@ const SigninPage = () => {
   );
 };
 
-export default SigninPage;
+export default SignInPage;

@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import Image from 'next/image';
 import { TbThumbUp, TbThumbDown } from 'react-icons/tb';
@@ -38,19 +39,25 @@ const GifContainer: React.FC<IGifContainerProps> = ({
             >
               <Image
                 alt={gif.title}
-                layout="fill"
-                objectFit="fill"
                 className="absolute inset-0 transition duration-300 group-hover:scale-110"
                 src={gif.fileName}
+                fill
+                sizes="100vw"
+                style={{
+                  objectFit: 'fill',
+                }}
               />
             </Link>
           ) : (
             <Image
               alt={gif.title}
-              layout="fill"
-              objectFit="fill"
               className="absolute inset-0 transition duration-300 group-hover:scale-110"
               src={gif.fileName}
+              fill
+              sizes="100vw"
+              style={{
+                objectFit: 'fill',
+              }}
             />
           )}
         </div>

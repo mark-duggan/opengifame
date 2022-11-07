@@ -1,18 +1,18 @@
+'use client';
 /* eslint-disable @next/next/no-img-element */
-import React, { Fragment } from 'react';
-import Image from 'next/image';
+import React from 'react';
+import Image from "next/image";
 import { useSession } from 'next-auth/react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { Disclosure } from '@headlessui/react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 import LoginButton from '@components/widgets/login/LoginButton';
-// import { HiBars3, HiMagnifyingGlass, HiXMark } from 'react-icons/hi2';
 import { FaBars, FaSearch, FaTimes } from 'react-icons/fa';
 
 const Navbar = () => {
   const { data: session } = useSession();
   const router = useRouter();
-  const currentRoute = router.pathname;
+  const pathname = usePathname();
   return (
     <Disclosure
       as="nav"
@@ -31,7 +31,10 @@ const Navbar = () => {
                         height={32}
                         src="/img/icon.svg"
                         alt="Workflow"
-                      />
+                        style={{
+                          maxWidth: "100%",
+                          height: "auto"
+                        }} />
                     </Link>
                   </div>
                   <div className="hidden w-auto h-8 lg:block">
@@ -41,7 +44,10 @@ const Navbar = () => {
                         height={32}
                         src="/img/icon.svg"
                         alt="Workflow"
-                      />
+                        style={{
+                          maxWidth: "100%",
+                          height: "auto"
+                        }} />
                     </Link>
                   </div>
                 </div>
@@ -50,7 +56,7 @@ const Navbar = () => {
                     <Link
                       href="/upload"
                       className={
-                        currentRoute === '/upload'
+                        pathname === '/upload'
                           ? 'px-3 py-2 text-sm font-medium  bg-accent rounded-md'
                           : 'px-3 py-2 text-sm font-medium  rounded-md hover:bg-accent/20'
                       }
@@ -60,7 +66,7 @@ const Navbar = () => {
                     <Link
                       href="/request"
                       className={
-                        currentRoute === '/request'
+                        pathname === '/request'
                           ? 'px-3 py-2 text-sm font-medium  bg-accent rounded-md'
                           : 'px-3 py-2 text-sm font-medium  rounded-md hover:bg-accent/20 '
                       }

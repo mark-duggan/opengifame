@@ -1,3 +1,4 @@
+'use client';
 import { Gif } from '@models';
 import React from 'react';
 import { ImEmbed2 } from 'react-icons/im';

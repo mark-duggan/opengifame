@@ -26,9 +26,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     },
   });
-  const gifs = await Promise.all(
-    results.map(async (gif: Gif): Promise<Gif> => mapGif(gif))
-  );
+  const gifs = results.map((gif) => mapGif(gif));
   return res.status(200).json(gifs);
 };
 export default handler;

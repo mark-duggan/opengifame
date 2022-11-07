@@ -5,7 +5,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { slug } = req.query;
   const gif = await client.gif.findUnique({
     where: {
-      slug,
+      slug: slug as string,
     },
     include: {
       _count: {

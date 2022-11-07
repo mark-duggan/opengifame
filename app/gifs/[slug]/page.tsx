@@ -3,7 +3,13 @@ import { Gif } from '@models';
 import { GifContainer, SharingComponent } from '@components';
 import client from '@lib/prismadb';
 import { mapGif } from '@lib/mapping/gif';
+import { notFound, useRouter } from 'next/navigation';
 
+interface IGifPageProps {
+  params: {
+    slug: string;
+  };
+}
 const getGif = async (slug: string): Promise<Gif> => {
   const gif = await client.gif.findUnique({
     where: {
@@ -18,11 +24,15 @@ const getGif = async (slug: string): Promise<Gif> => {
       },
     },
   });
-
+  if (!gif) {
+    notFound();
+  }
   return mapGif(gif);
 };
-const GifPage = async ({ params: { slug } }) => {
-  const gif = await getGif(slug);
+const GifPage = async ({ params }: IGifPageProps) => {
+  const { slug } = params;
+
+  const gif = await getGif(slug as string);
   return (
     <div className="relative overflow-hidden">
       <div className="relative pb-16 sm:pb-24 lg:pb-32">

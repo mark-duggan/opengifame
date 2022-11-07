@@ -1,37 +1,25 @@
 import React from 'react';
-import { Gif } from '@models';
-import { GifContainer, SharingComponent } from '@components';
+import {Gif} from '@models';
+import {GifContainer, SharingComponent} from '@components';
 import client from '@lib/prismadb';
-import { mapGif } from '@lib/mapping/gif';
-import { notFound, useRouter } from 'next/navigation';
+import {mapGif} from '@lib/mapping/gif';
+import {notFound, useRouter} from 'next/navigation';
 
 interface IGifPageProps {
   params: {
     slug: string;
   };
 }
-const getGif = async (slug: string): Promise<Gif> => {
-  const gif = await client.gif.findUnique({
-    where: {
-      slug,
-    },
-    include: {
-      _count: {
-        select: {
-          upVotes: true,
-          downVotes: true,
-        },
-      },
-    },
-  });
-  if (!gif) {
-    notFound();
-  }
-  return mapGif(gif);
-};
-const GifPage = async ({ params }: IGifPageProps) => {
-  const { slug } = params;
 
+const getGif = async (slug: string): Promise<Gif> => {
+  const res = await fetch(`${process.env.API_URL}/api/gifs/${slug}`);
+  if (res.status === 200) {
+    return await res.json();
+  }
+  notFound();
+};
+const GifPage = async ({params}: IGifPageProps) => {
+  const {slug} = params;
   const gif = await getGif(slug as string);
   return (
     <div className="relative overflow-hidden">
@@ -47,12 +35,13 @@ const GifPage = async ({ params }: IGifPageProps) => {
               <p className="mt-3 text-base sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                 {gif.description}
               </p>
-              <SharingComponent gif={gif} />
+              <SharingComponent gif={gif}/>
               {/* <div className="mt-5">
                 <AddCommentComponent />
               </div> */}
             </div>
-            <div className="relative mt-12 sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
+            <div
+              className="relative mt-12 sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
               <div className="relative w-full mx-auto rounded-lg shadow-lg lg:max-w-md">
                 <span className="sr-only">The gif</span>
                 <GifContainer

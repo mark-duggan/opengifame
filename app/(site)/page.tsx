@@ -4,11 +4,9 @@ import { GifContainer } from '@components';
 import { logger } from '@lib/logger';
 
 async function getGifs() {
-  logger.info('page', 'getGifs', `${process.env.API_URL}/api/gifs`);
   const gifs = await fetch(`${process.env.API_URL}/api/gifs`, {
     cache: 'no-store',
   });
-  logger.info('page', 'getGifs_gotGifs', gifs);
   return await gifs.json();
 }
 

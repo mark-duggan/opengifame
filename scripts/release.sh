@@ -34,6 +34,6 @@ git tag -a "v${version}" -m "Release ${version}"
 
 git checkout trunk
 git merge develop
-#git push --tags origin trunk develop
+git push --tags origin trunk develop
 
 git checkout develop

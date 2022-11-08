@@ -1,48 +1,51 @@
-import { signIn } from 'next-auth/react';
+'use client';
+
 import React, { FormEventHandler } from 'react';
-import Router from 'next/router';
-import Image from "next/image";
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { logger } from '@lib/logger';
-import { debug } from 'console';
 import { SocialLogin } from '@components';
-const SigninPage = () => {
+
+const SignUpPage = () => {
+  const router = useRouter();
   const [userInfo, setUserInfo] = React.useState({
-    email: 'fergal.moran+frasiergifs@gmail.com',
-    password: 'secret',
+    email: '',
+    password: '',
+    repeatPassword: '',
   });
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     //TODO: validation
     e.preventDefault();
-    const res = await signIn('credentials', {
-      email: userInfo.email,
-      password: userInfo.password,
-      redirect: false,
-    });
-    if (res?.status === 200) {
-      Router.replace('/');
+    try {
+      const res = await fetch(`/api/user/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: userInfo.email,
+          password: userInfo.password,
+        }),
+      });
+      logger.debug(`res`, res);
+      router.push(
+        `signin${
+          router.query.callbackUrl
+            ? `?callbackUrl=${router.query.callbackUrl}`
+            : ''
+        }`
+      );
+    } catch (error) {
+      console.error(error);
     }
-    console.log('signin', 'handleSubmit', res);
   };
 
   return (
-    <div className="flex flex-col justify-center min-h-full py-1 sm:px-6 lg:px-8">
+    <div className="flex flex-col justify-center min-h-full py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-2 text-3xl font-extrabold text-center ">
-          Sign in to your account
+          Create new account
         </h2>
-        <p className="mt-2 text-sm text-center ">
-          Or{' '}
-          <Link
-            href="/auth/signup"
-            className="font-medium "
-          >
-            create a new account
-          </Link>
-        </p>
       </div>
 
-      <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="px-4 py-8 shadow sm:rounded-lg sm:px-10">
           <form
             className="space-y-6"
@@ -54,7 +57,8 @@ const SigninPage = () => {
                 htmlFor="email"
                 className="block text-sm font-medium "
               >
-                Email address
+                {' '}
+                Email address{' '}
               </label>
               <div className="mt-1">
                 <input
@@ -74,9 +78,10 @@ const SigninPage = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium "
+                className="block text-sm font-medium"
               >
-                Password
+                {' '}
+                Password{' '}
               </label>
               <div className="mt-1">
                 <input
@@ -92,30 +97,25 @@ const SigninPage = () => {
                 />
               </div>
             </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
+            <div>
+              <label
+                htmlFor="repeat-password"
+                className="block text-sm font-medium"
+              >
+                Repeat password
+              </label>
+              <div className="mt-1">
                 <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="w-4 h-4"
+                  id="repeat-password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  value={userInfo.repeatPassword}
+                  onChange={({ target }) =>
+                    setUserInfo({ ...userInfo, repeatPassword: target.value })
+                  }
+                  className="w-full input input-bordered"
                 />
-                <label
-                  htmlFor="remember-me"
-                  className="block ml-2 text-sm text-accent"
-                >
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-medium text-info hover:text-primary/50"
-                >
-                  Forgot your password?
-                </a>
               </div>
             </div>
 
@@ -124,7 +124,7 @@ const SigninPage = () => {
                 type="submit"
                 className="w-full btn btn-primary"
               >
-                Sign in
+                Create account
               </button>
             </div>
           </form>
@@ -138,4 +138,4 @@ const SigninPage = () => {
   );
 };
 
-export default SigninPage;
+export default SignUpPage;

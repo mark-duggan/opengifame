@@ -8,8 +8,8 @@ import { signIn } from 'next-auth/react';
 const SignInPage = () => {
   const router = useRouter();
   const [userInfo, setUserInfo] = React.useState({
-    email: 'fergal.moran+frasiergifs@gmail.com',
-    password: 'secret',
+    email: '',
+    password: '',
   });
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     //TODO: validation

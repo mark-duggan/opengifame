@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Gif } from '@models';
 import { mapGif } from '@lib/mapping/gif';
 import client from '@lib/prismadb';
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

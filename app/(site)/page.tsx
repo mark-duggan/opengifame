@@ -1,11 +1,11 @@
 import React from 'react';
 import { Gif } from '@models';
-import { mapGif } from '@lib/mapping/gif';
-import client from '@lib/prismadb';
 import { GifContainer } from '@components';
 
 async function getGifs() {
-  const gifs = await fetch(`${process.env.API_URL}/api/gifs`);
+  const gifs = await fetch(`${process.env.API_URL}/api/gifs`, {
+    cache: 'no-store',
+  });
   return await gifs.json();
 }
 

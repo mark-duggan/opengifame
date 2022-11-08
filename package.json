@@ -1,7 +1,7 @@
 {
   "name": "opengifame",
   "description": "Open source hosting for your gifs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "dev": "node ./server.js",
